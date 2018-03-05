@@ -1,0 +1,39 @@
+{
+  "name": "weconnect",
+  "version": "1.0.0",
+  "description": "An app that connects businesses to individuals who might need their offered services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d-beloved/WEconnect.git"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "PostgreSQL",
+    "React"
+  ],
+  "author": "D-beloved",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/d-beloved/WEconnect/issues"
+  },
+  "homepage": "https://github.com/d-beloved/WEconnect#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
+  }
+}
