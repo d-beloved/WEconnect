@@ -1,0 +1,51 @@
+/* USER PROFILE PAGE */
+
+.jumbotron {
+  padding-top: 6rem;
+  /* padding-bottom: 6rem; */
+  margin-bottom: 0;
+  background-color: #fff;
+  background-image: url(../images/asset38.png);
+  background-position: absolute;
+  background-size: cover;
+}
+
+/* .fb-profile img.fb-image-lg {
+  z-index: 0;
+  width: 100%;
+  margin-bottom: 0;
+} */
+
+.fb-image-profile {
+  margin: -50px 10px 0px 50px;
+  z-index: 9;
+}
+
+.name {
+  margin: -200px 10pz 0px 50px;
+  z-index: 9;
+}
+
+@media (max-width:768px) {
+  .fb-profile-text>h1 {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .fb-image-profile {
+    margin: -45px 10px 0px 25px;
+    z-index: 9;
+    width: 20%;
+  }
+}
+
+.btn-pref .btn {
+  -webkit-border-radius: 0 !important;
+}
+
+.theme-color {
+  background-color: #c73606;
+}
+
+.my-buttons {
+  background-color: #c9c5c5;
+}
