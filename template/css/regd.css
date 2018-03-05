@@ -1,8 +1,14 @@
+html,
+body {
+  height: 100%;
+  background-image:url('https://lut.im/cOs9CbKe42/DT8DT06CeJkRsyWC.jpg');
+  background-size: cover;
+}
+
 .stylish-form 
     {
-      background-image:url('https://lut.im/cOs9CbKe42/DT8DT06CeJkRsyWC.jpg');
-      background-size: cover;
       padding:10px;
+      height: 100%;
     }
     .stylish-form h2 {
       color:#c73606;
