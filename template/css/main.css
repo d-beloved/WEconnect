@@ -31,6 +31,10 @@ body {
   max-width: 40rem;
 }
 
+.bar {
+  
+}
+
 .album {
   min-height: 50rem;
   padding-top: 3rem;
@@ -92,4 +96,11 @@ footer p {
   background-color: #c73606;
   color: white;
 }
+
+/* .biz-details .modal-dialog{max-width: 400px; width: 100%;}
+.pre-cost{text-decoration: line-through; color: #a5a5a5;}
+.space-ten{padding: 10px 0;} */
+
+.checked {
+  color: #ff9f1a; }
 
