@@ -55,7 +55,9 @@
                 <h6 class="text-white text-center">fashionpreneur</h6>
             </div>
         </div>
-        <div align="center" class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn center-block">Add your business</button></div>
+        <div align="center" class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn center-block">Add your business</button>
+        <button data-toggle="modal" data-target="#editspaceModal" class="btn center-block">Edit business</button>
+        </div>
         <div class="container">
             <div class="card">
                 <div class="container">
@@ -176,6 +178,81 @@
 		</div>
 	</div>
   </div>
+
+  <div class="modal fade" id="editspaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title" id="lineModalLabel">Edit Business details</h3>
+        </div>
+        <div class="modal-body">
+          
+                <!-- content goes here -->
+          <form>
+                  <div class="form-group">
+                    <label for="Businessname">Business name:</label>
+                    <input type="text" class="form-control" id="Businessname" placeholder="...">
+    
+                    <label for="address">Address of business:</label>
+                    <textarea class="form-control" id="address" row="3" placeholder="type your address here"></textarea>
+    
+                    <label for="website">company website:</label>
+                    <input type="text" class="form-control" id="website" placeholder="www.example.com">
+    
+                    <label for="telno">Phone no.:</label>
+                    <input type="tel" class="form-control" id="telno" placeholder="+234 123456789">
+                  </div>
+    
+                  <div class="form-group">
+                    <label for="details">Business info: </label>
+                    <textarea class="form-control" id="details" row="5" placeholder="Information about your business"></textarea>
+                  </div>
+                  <div class="form-group">
+                  <label for="location">Location: </label>
+                  <select class="custom-select" id="location">
+                      <option selected>choose...</option>
+                      <option value="1">Prague</option>
+                      <option value="2">Lagos</option>
+                      <option value="3">San Francisco</option>
+                    </select>
+                  </div>
+                    <div class="form-group">
+                    <label for="category">Category of business: </label>
+                    <select class="custom-select" id="category">
+                        <option selected>choose...</option>
+                        <option value="1">Information Technology</option>
+                        <option value="2">Fashion</option>
+                        <option value="3">Art</option>
+                        <option value="3">Engineering</option>
+                      </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="services">Services: </label>
+                      <textarea class="form-control" id="services" row="5" placeholder="Services you render"></textarea>
+                    </div>
+                      
+    
+                  <div class="form-group">
+                    <label for="exampleInputFile">Your brand picture: </label>
+                    <input type="file" id="exampleInputFile">
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> Do you agree to our <a href="#" class="text-warning">terms and conditions</a>?
+                    </label>
+                  </div>
+                </form>
+    
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group" role="group">
+              <button type="button" id="saveImage" class="btn btn-warning" data-action="save" role="button">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
 </div>
       </div>
 
