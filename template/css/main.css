@@ -38,6 +38,14 @@ body {
   background-color: #f7f7f7;
 }
 
+.marginate {
+  margin: 70px;
+}
+
+ul > li > a {
+  color: #c73606;
+}
+
 .card {
   float: left;
   width: 33.333%;
@@ -67,7 +75,7 @@ body {
   transform: translateY(-5px);
 }
 .category-item.yellow:hover {
-  border-color: #fec826;
+  border-color: #c73606;
 }
 
 footer {
@@ -78,5 +86,10 @@ footer {
 footer p {
   margin-bottom: .15rem;
   font-size: .75rem;
+}
+
+.btn {
+  background-color: #c73606;
+  color: white;
 }
 
