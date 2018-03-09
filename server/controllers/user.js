@@ -30,8 +30,8 @@ class UserController {
           email: req.body.email,
           password
         })
-        .then((user) => {
-          const safeUser = user;
+        .then((users) => {
+          const safeUser = users;
           safeUser.password = 'xxxxxxxxxxxxxxxxxxxxxxx';
           res.status(201).send({ message: 'The user has been created!', user: safeUser });
         })
@@ -39,6 +39,37 @@ class UserController {
           res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
         });
     }
+  }
+
+  /**
+   * Allows a signed up user to login
+   * @param{Object} req - api request
+   * @param{Object} res - route response
+   * @return{string} login status
+   */
+  static loginUser(req, res) {
+    Users
+      .findOne({
+        where: { email: req.body.email },
+      })
+      .then((users) => {
+        if (users) { // i.e. if users exists
+          // compare the hashed password
+          bcrypt.compare(req.body.password, users.password).then((check) => {
+            if (!check) { // If the password does not match
+              res.status(401).send({ message: 'wrong password or email!' });
+            } else {
+              // lOgs the user in
+              res.status(200).send({ message: 'You are logged in!' });
+            }
+          });
+        } else {
+          res.status(401).send({ message: 'wrong email or password' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 }
 
