@@ -22,12 +22,17 @@ router.route('/api/v1/auth/signup')
 router.route('/api/v1/auth/login')
   .post(UserController.loginUser);
 
-// Register business
+// Register a business
 router.routes('/api/v1/businesses')
   .post(BusinessController.createBusiness);
 
-// Modify Business
+// Modify a Business
 router.routes('/api/v1/businesses/<businessId>')
   .put(BusinessController.modifyBusiness);
+
+// Delete a Business
+router.routes('/api/v1/businesses/<businessId')
+  .delete(BusinessController.deleteBusiness);
+
 
 export default router;
