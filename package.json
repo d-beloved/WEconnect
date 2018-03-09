@@ -4,6 +4,7 @@
   "description": "An app that connects businesses to individuals who might need their offered services",
   "main": "server/server.js",
   "scripts": {
+    "start": "nodemon --watch server --exec babel-node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,6 +36,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-react": "^7.7.0",
+    "nodemon": "^1.17.1"
   }
 }
