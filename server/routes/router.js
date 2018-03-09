@@ -1,5 +1,6 @@
 import express from 'express';
 import UserController from '../controllers/user';
+import BusinessController from '../controllers/business';
 
 
 // using router routes
@@ -20,5 +21,9 @@ router.route('/api/v1/auth/signup')
 // Login API
 router.route('/api/v1/auth/login')
   .post(UserController.loginUser);
+
+// Add business
+router.routes('/businesses')
+  .post(BusinessController.createBusiness);
 
 export default router;
