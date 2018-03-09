@@ -14,16 +14,20 @@ router.route('/')
     res.status(200).send({ message: 'Welcome to WEconnect app! Your one stop place to get all your business needs answered' });
   });
 
-// Signup API
+// Signup
 router.route('/api/v1/auth/signup')
   .post(UserController.createUser);
 
-// Login API
+// Login
 router.route('/api/v1/auth/login')
   .post(UserController.loginUser);
 
-// Add business
-router.routes('/businesses')
+// Register business
+router.routes('/api/v1/businesses')
   .post(BusinessController.createBusiness);
+
+// Modify Business
+router.routes('/api/v1/businesses/<businessId>')
+  .put(BusinessController.modifyBusiness);
 
 export default router;

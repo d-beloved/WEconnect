@@ -31,6 +31,40 @@ class BusinessController {
         res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
       });
   }
+
+  /**
+   * Modifies an existing Business
+   * @param{Object} req - api request
+   * @param{Object} res - route response
+   * @return{json} edited Business responce
+   */
+  static modifyBusiness(req, res) {
+    Business
+      .findOne({ where: { id: req.params.businessId } })
+      .then((business) => {
+        if (business) { // if the business exists
+          business
+            .update({
+              name: req.body.name || business.name,
+              address: req.body.address || business.address,
+              website: req.body.website || business.website,
+              phoneno: req.body.phoneno || business.phoneno,
+              details: req.body.details || business.details,
+              location: req.body.details || business.location,
+              category: req.body.category || business.category,
+              services: req.body.services || business.services
+            })
+            .then((modifiedBusiness) => {
+              res.status(200).send({ message: 'Business has been updated successfully!', business: modifiedBusiness });
+            });
+        } else {
+          res.status(404).send({ message: 'cannot find the specifies business!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
+  }
 }
 
 export default BusinessController;
