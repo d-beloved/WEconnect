@@ -1,11 +1,11 @@
 import Users from './user';
-// import Business from './BusinessModel';
+import Business from './business';
 // import Category from './CategoryModel';
 // import Review from './ReviewModel';
 
 const models = {
   Users,
-  // Business,
+  Business,
   // Category,
   // Review
 };
