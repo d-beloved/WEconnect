@@ -36,7 +36,7 @@ class BusinessController {
    * Modifies an existing Business
    * @param{Object} req - api request
    * @param{Object} res - route response
-   * @return{json} edited Business responce
+   * @return{json} edited Business response
    */
   static modifyBusiness(req, res) {
     Business
@@ -59,6 +59,27 @@ class BusinessController {
             });
         } else {
           res.status(404).send({ message: 'cannot find the specifies business!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
+  }
+
+  /**
+   * Deletes a specific Business
+   * @param{Object} req - api request
+   * @param{Object} res - route response
+   * @return{json} status of the request
+   */
+  static deleteBusiness(req, res) {
+    Business
+      .findOne({ where: { id: req.param.businessId } })
+      .then((business) => {
+        if (business) {
+          business.destroy().then(res.status(200).send({ message: 'Business deleted!' }));
+        } else {
+          res.status(404).send({ message: 'cannot find the specified event' });
         }
       })
       .catch((err) => {
