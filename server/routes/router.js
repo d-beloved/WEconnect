@@ -38,4 +38,8 @@ router.route('/api/v1/businesses/:businessId')
 router.route('/api/v1/businesses/:businessId')
   .get(BusinessController.getOneBusiness);
 
+// Get all BUsiness in the App
+router.route('/api/v1/businesses')
+  .get(BusinessController.getAllBusiness);
+
 export default router;
