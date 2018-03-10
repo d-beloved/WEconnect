@@ -107,6 +107,27 @@ class BusinessController {
         res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
       });
   }
+
+  /**
+   * Get all Businesses
+   * @param{Object} req - api request
+   * @param{Object} res - route response
+   * @return{json} Details of all the business
+   */
+  static getAllBusiness(req, res) {
+    Business
+      .all()
+      .then((business) => {
+        if (business) {
+          res.status(200).send({ message: 'All Business delivered!', business });
+        } else {
+          res.status(404).send({ message: 'cannot find any center!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
+  }
 }
 
 export default BusinessController;
