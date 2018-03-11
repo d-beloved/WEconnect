@@ -19,7 +19,7 @@ class ReviewsController {
    */
   static addReview(req, res) {
     for (let i = 0; i < Business.length; i += 1) {
-      if (Business[i].id === parseInt(req.params.Business.id, 10)) {
+      if (Business[i].id === parseInt(req.params.BusinessId, 10)) {
         Reviews.push({
           name: req.body.name,
           review: req.body.review
@@ -33,7 +33,7 @@ class ReviewsController {
     return res.status(404).json({
       message: 'Business not found',
       error: true
-    })
+    });
   }
 }
 

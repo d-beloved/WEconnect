@@ -1,6 +1,7 @@
 import express from 'express';
 import UserController from '../controllers/user';
 import BusinessController from '../controllers/business';
+import ReviewsController from '../controllers/reviews';
 
 
 // using router routes
@@ -41,5 +42,9 @@ router.route('/api/v1/businesses/:businessId')
 // Get all BUsiness in the App
 router.route('/api/v1/businesses')
   .get(BusinessController.getAllBusiness);
+
+// Post reviews for a business
+router.route('/api/v1/businesses/:businessId/reviews')
+  .post(ReviewsController.addReview);
 
 export default router;
