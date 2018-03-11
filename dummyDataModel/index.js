@@ -1,13 +1,11 @@
 import Users from './user';
 import Business from './business';
-// import Category from './CategoryModel';
-// import Review from './ReviewModel';
+import Reviews from './reviews';
 
 const models = {
   Users,
   Business,
-  // Category,
-  // Review
+  Reviews
 };
 
 export default models;
