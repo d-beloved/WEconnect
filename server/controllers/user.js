@@ -4,37 +4,41 @@ import models from '../../dummyDataModel';
 const { Users } = models;
 
 /**
- * @description - Creates the signup and login component.
+ * creates the signup and login component.
  */
 class UserController {
   /**
-   * @description - Registers a new user with a hashed password.
-   *
+   * Registers a new user with a hashed password.
    * @param {Object} req - api request.
-   *
    * @param {Object} res - route response.
-   *
    * @return{json} registered user details.
    */
   static createUser(req, res) {
-    // checks the length of the password and its validity
     if (
       req.body.password === undefined ||
       req.body.password === null ||
       req.body.password.length < 6
     ) {
-      res.status(400).json({ 
-        message: 'the password is too short! - make sure it is at least 6 characters',
-        error: true
-      });
+      res.status(400).send({ message: 'the password is too short! - make sure it is at least 6 characters' });
+    } else {
+      // HAsh password to save in the dummydatabase
+      const password = bcrypt.hashSync(req.body.password, 10);
+      Users
+        .create({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          password
+        })
+        .then((user) => {
+          const safeUser = user;
+          safeUser.password = 'xxxxxxxxxxxxxxxxxxxxxxx';
+          res.status(201).send({ message: 'The user has been created!', user: safeUser });
+        })
+        .catch((err) => {
+          res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+        });
     }
-    // Hash password to save in the dummydatabase
-    const password = bcrypt.hashSync(req.body.password, 10);
-    Users.push(req.body);
-    return res.status(201).json({
-      message: 'The user has been created!',
-      error: false
-    });
   }
 }
 
