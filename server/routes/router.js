@@ -63,6 +63,7 @@ router.route('/api/v1/businesses/:businessId')
 router.route('/api/v1/businesses')
   .get(
     SearchFilter.byLocation,
+    SearchFilter.byCategory,
     BusinessController.getAllBusiness
   );
 
