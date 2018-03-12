@@ -21,7 +21,7 @@ app.use('/', router);
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.listen('3001', () => {
   /* eslint-disable no-console */
-  console.log('WEconnect App is running on port 3001');
+  console.log('WEconnect App is listening on port 3001');
 });
 
 // This will be our application entry. Our server is setup here.
