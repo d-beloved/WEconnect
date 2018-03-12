@@ -64,6 +64,18 @@ router.route('/api/v1/businesses')
 
 // Post reviews for a business
 router.route('/api/v1/businesses/:businessId/reviews')
-  .post(ReviewsController.addReview);
+  .post(
+    Validation.trimBodyValues,
+    Validation.checkParamInt('businessId'),
+    Validation.checkBodyContains('name', 'reviews'),
+    ReviewsController.addReview
+  );
+
+// Get all Reviews for a business
+router.route('/api/v1/businesses/:businessId/reviews')
+  .get(
+    Validation.checkParamInt('businessId'),
+    ReviewsController.getReviews
+  );
 
 export default router;
