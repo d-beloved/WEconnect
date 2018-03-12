@@ -21,6 +21,7 @@ class ReviewsController {
     for (let i = 0; i < Business.length; i += 1) {
       if (Business[i].id === parseInt(req.params.BusinessId, 10)) {
         Reviews.push({
+          id: Reviews.length + 1,
           name: req.body.name,
           review: req.body.review
         });
@@ -34,6 +35,28 @@ class ReviewsController {
       message: 'Business not found',
       error: true
     });
+  }
+
+  /**
+   * @description - Get all reviews for a business
+   *
+   * @param  {Object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @param {Object} next - Call back function
+   *
+   * @return {object} - status code and error message
+   */
+  static getReviews(req, res) {
+    for (let i = 0; i < Business.length; i += 1) {
+      if (Business[i].id === parseInt(req.params.BusinessId, 10)) {
+        return res.status(200).json({
+          Reviews,
+          error: false
+        });
+      }
+    }
   }
 }
 
