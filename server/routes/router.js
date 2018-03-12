@@ -2,6 +2,7 @@ import express from 'express';
 import UserController from '../controllers/user';
 import BusinessController from '../controllers/business';
 import ReviewsController from '../controllers/reviews';
+import Validation from '../middlewares/validation';
 
 
 // using router routes
@@ -17,11 +18,21 @@ router.route('/')
 
 // Signup
 router.route('/api/v1/auth/signup')
-  .post(UserController.createUser);
+  .post(
+    Validation.trimBodyValues,
+    Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
+    Validation.checkRequestEmailIsEmail,
+    Validation.checkEmailNotExists,
+    UserController.createUser
+  );
 
 // Login
 router.route('/api/v1/auth/login')
-  .post(UserController.loginUser);
+  .post(
+    Validation.trimBodyValues,
+    Validation.checkBodyContains('email', 'password'),
+    UserController.loginUser
+  );
 
 // Register a business
 router.route('/api/v1/businesses')
