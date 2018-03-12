@@ -23,7 +23,7 @@ class Validation {
       /* eslint-disable no-restricted-syntax */
       for (const p of params) {
         if (req.body[p] === undefined) {
-          return res.status(400).json({ 
+          return res.status(400).json({
             message: `${p} required in body!`
           });
         }

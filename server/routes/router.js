@@ -3,6 +3,7 @@ import UserController from '../controllers/user';
 import BusinessController from '../controllers/business';
 import ReviewsController from '../controllers/reviews';
 import Validation from '../middlewares/validation';
+import SearchFilter from '../middlewares/searchFilter';
 
 
 // using router routes
@@ -60,7 +61,10 @@ router.route('/api/v1/businesses/:businessId')
 
 // Get all BUsiness in the App
 router.route('/api/v1/businesses')
-  .get(BusinessController.getAllBusiness);
+  .get(
+    SearchFilter.byLocation,
+    BusinessController.getAllBusiness
+  );
 
 // Post reviews for a business
 router.route('/api/v1/businesses/:businessId/reviews')
