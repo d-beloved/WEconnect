@@ -122,9 +122,11 @@ class BusinessController {
    *
    * @param{Object} res - route response
    *
+   * @param{Function} next - next function
+   * 
    * @return{json} Details of all the business
    */
-  static getAllBusiness(req, res) {
+  static getAllBusiness(req, res, next) {
     return res.status(200).json({
       Business,
       error: false
