@@ -3,130 +3,132 @@ import models from '../../dummyDataModel';
 const { Business } = models;
 
 /**
- * creates the BUsiness components for creation, updating and deleting businesses
+ * @description - creates the BUsiness components for creation, updating and deleting businesses
  */
 class BusinessController {
   /**
-   * Creates a new Business
-   * @param{Object} req - api reuest
+   * @description - Creates a new Business
+   *
+   * @param{Object} req - api request
+   *
    * @param{Object} res - route response
+   *
    * @return{json} registered business details
    */
   static createBusiness(req, res) {
-    Business
-      .create({
-        name: req.body.name,
-        address: req.body.address || null,
-        website: req.body.website || null,
-        phoneno: req.body.phoneno,
-        details: req.body.details || null,
-        location: req.body.details,
-        category: req.body.category,
-        services: req.body.services
-      })
-      .then((business) => {
-        res.status(201).send({ message: 'Your business has been created!', business });
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
-      });
+    Business.push({
+      id: Business.length + 1,
+      name: req.body.name,
+      address: req.body.address || null,
+      website: req.body.website || null,
+      phoneno: req.body.phoneno,
+      details: req.body.details || null,
+      location: req.body.details,
+      category: req.body.category,
+      services: req.body.services,
+    });
+    return res.status(201).json({ 
+      message: 'Your business has been created!',
+      error: false
+    });
   }
 
   /**
-   * Modifies an existing Business
+   * @description - Modifies an existing Business
+   *
    * @param{Object} req - api request
+   *
    * @param{Object} res - route response
+   *
    * @return{json} edited Business response
    */
   static modifyBusiness(req, res) {
-    Business
-      .findOne({ where: { id: req.params.businessId } })
-      .then((business) => {
-        if (business) { // if the business exists
-          business
-            .update({
-              name: req.body.name || business.name,
-              address: req.body.address || business.address,
-              website: req.body.website || business.website,
-              phoneno: req.body.phoneno || business.phoneno,
-              details: req.body.details || business.details,
-              location: req.body.details || business.location,
-              category: req.body.category || business.category,
-              services: req.body.services || business.services
-            })
-            .then((modifiedBusiness) => {
-              res.status(200).send({ message: 'Business has been updated successfully!', business: modifiedBusiness });
-            });
-        } else {
-          res.status(404).send({ message: 'cannot find the specifies business!' });
-        }
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
-      });
+    for (let i = 0; i < Business.length; i += 1) {
+      if (Business[i].id === parseInt(req.params.businessId, 10)) {
+        Business[i].name = req.body.name || Business.name;
+        Business[i].address = req.body.address || Business.address;
+        Business[i].website = req.body.website || Business.website;
+        Business[i].phoneno = req.body.phoneno || Business.phoneno;
+        Business[i].details = req.body.details || Business.details;
+        Business[i].location = req.body.details || Business.location;
+        Business[i].category = req.body.category || Business.category;
+        Business[i].services = req.body.services || Business.services;
+        return res.status(200).json({
+          message: 'Business updated successfully!',
+          error: false
+        });
+      }
+    }
+    return res.status(404).json({
+      message: 'Business not found!',
+      error: true
+    });
   }
 
   /**
-   * Deletes a specific Business
+   * @description - Deletes a specific Business
+   *
    * @param{Object} req - api request
+   *
    * @param{Object} res - route response
+   *
    * @return{json} status of the request
    */
   static deleteBusiness(req, res) {
-    Business
-      .findOne({ where: { id: req.param.businessId } })
-      .then((business) => {
-        if (business) {
-          business.destroy().then(res.status(200).send({ message: 'Business deleted!' }));
-        } else {
-          res.status(404).send({ message: 'cannot find the specified event' });
-        }
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
-      });
+    for (let i = 0; i < Business.length; i += 1) {
+      if (Business.id === parseInt(req.params.BusinessId, 10)) {
+        Business.splice(i, 1);
+        return res.status(200).json({
+          message: 'Business deleted successfully',
+          error: false
+        });
+      }
+    }
+    return res.status(404).json({
+      message: 'Business not found!',
+      error: true
+    });
   }
 
   /**
-   * Get a Business' detail
+   * @description - Get a Business' detail
+   *
    * @param{Object} req - api request
+   *
    * @param{Object} res - route response
+   *
    * @return{json} Registered business details
    */
   static getOneBusiness(req, res) {
-    Business
-      .findById(req.params.businessId)
-      .then((business) => {
-        if (business) {
-          res.status(200).send({ message: 'Business shown below...', business });
-        } else {
-          res.status(404).send({ message: 'Cannot find the specified business!' });
-        }
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
-      });
+    for (let i = 0; i < Business.length; i += 1) {
+      if (Business.id === parseInt(req.params.Businessid, 10)) {
+        return res.status(200).json({
+          Business: Business[i],
+          message: 'Success',
+          error: false
+        });
+      }
+    }
+    return res.status(404).json({
+      message: 'Business not found!',
+      error: true
+    });
   }
 
   /**
-   * Get all Businesses
+   * @description - Get all Businesses
+   *
    * @param{Object} req - api request
+   *
    * @param{Object} res - route response
+   *
    * @return{json} Details of all the business
    */
   static getAllBusiness(req, res) {
-    Business
-      .all()
-      .then((business) => {
-        if (business) {
-          res.status(200).send({ message: 'All Business delivered!', business });
-        } else {
-          res.status(404).send({ message: 'cannot find any center!' });
-        }
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
-      });
+    return res.status(200).json({
+      Business,
+      error: false
+    });
   }
 }
 
