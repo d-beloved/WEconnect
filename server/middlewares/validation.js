@@ -97,6 +97,25 @@ class Validation {
     }
     next();
   }
+
+  /**
+   * @description - Checks if param value is an integer
+   *
+   * @param{Object} value - api request
+   *
+   * @param{Object} res - route response
+   *
+   * @param{Function} next - next middleware
+   *
+   * @return{undefined}
+   */
+  static checkParamInt(value) {
+    return (req, res, next) => {
+      if (!req.params[value].match(/^[0-9]+$/)) {
+        res.status(400).send({ message: 'parameter type is not supported! - use integer parameters' });
+      } else next();
+    };
+  }
 }
 
 export default Validation;

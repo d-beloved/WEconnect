@@ -36,11 +36,19 @@ router.route('/api/v1/auth/login')
 
 // Register a business
 router.route('/api/v1/businesses')
-  .post(BusinessController.createBusiness);
+  .post(
+    Validation.trimBodyValues,
+    Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
+    Validation.checkParamInt('phoneno'),
+    BusinessController.createBusiness
+  );
 
 // Modify a Business
 router.route('/api/v1/businesses/:businessId')
-  .put(BusinessController.modifyBusiness);
+  .put(
+    Validation.trimBodyValues,
+    BusinessController.modifyBusiness
+  );
 
 // Delete a Business
 router.route('/api/v1/businesses/:businessId')
