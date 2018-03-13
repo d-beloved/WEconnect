@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/routes/*.test.js --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/d-beloved/WEconnect#readme",
   "dependencies": {
+    "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "email-validator": "^1.1.1",

@@ -9,7 +9,6 @@ describe('Register a Business', () => {
       .post('/api/v1/businesses')
       .send({
         name: 'Dave concepts',
-        phoneno: '',
         location: 'Ajah, Lagos',
         category: 'Telecommunications',
         services: 'fibre optic, end to end connections',
@@ -67,7 +66,7 @@ describe('Modify a Business', () => {
   });
   it('Should return 200 if business was edited successfully', (done) => {
     request(server)
-      .put('/api/v1/businesses/1')
+      .put('/api/v1/businesses/3')
       .send({
         name: 'Dave concepts',
         address: '9,tevbehcbe,evuewnjcwnc, Nigeria',
@@ -125,7 +124,7 @@ describe('Retrieve a Business', () => {
   });
   it('Should return 200 if business was found', (done) => {
     request(server)
-      .get('/api/v1/businesses/2')
+      .get('/api/v1/businesses/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('object');
@@ -136,6 +135,14 @@ describe('Retrieve a Business', () => {
 
 describe('Retrieve all Businesses with specific location', () => {
   /* Get all businesses with specific location */
+  it('Should return 200 if business with the location was found', (done) => {
+    request(server)
+      .get('/api/v1/businesses?location=lagos')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
   it('Should return 404 if business with location not found', (done) => {
     request(server)
       .get('/api/v1/businesses?location=Bauchi')
@@ -146,35 +153,25 @@ describe('Retrieve all Businesses with specific location', () => {
         done();
       });
   });
-  it('Should return 200 if business with the location was found', (done) => {
-    request(server)
-      .get('/api/v1/businesses?location=Lagos')
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
 });
 
 describe('Retrieve all Businesses in specific category', () => {
   /* Get all businesses with specific category */
+  it('Should return 200 if business in the category was found', (done) => {
+    request(server)
+      .get('/api/v1/businesses?category=fashion')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
   it('Should return 404 if business with category not found', (done) => {
     request(server)
       .get('/api/v1/businesses?category=Nutrition')
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body).to.be.an('object');
-        expect(res.body.message).to.equal('There is no business with in that category');
-        done();
-      });
-  });
-  it('Should return 200 if business with in the category was found', (done) => {
-    request(server)
-      .get('/api/v1/businesses?category=Fashion')
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.be.an('object');
+        expect(res.body.message).to.equal('There is no business in that category');
         done();
       });
   });
@@ -182,15 +179,6 @@ describe('Retrieve all Businesses in specific category', () => {
 
 describe('Retrieve all Businesses', () => {
   /* Get all Business in the App */
-  it('Should return 404 if no business was found', (done) => {
-    request(server)
-      .get('/api/v1/businesses')
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
   it('Should return 200 if businesses were found', (done) => {
     request(server)
       .get('/api/v1/businesses')

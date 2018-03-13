@@ -8,7 +8,6 @@ describe('Add Reviews to a Business', () => {
     request(server)
       .post('/api/v1/businesses/1/reviews')
       .send({
-        name: '',
         review: 'The food at your restaurant was heavenly',
       })
       .end((err, res) => {
@@ -56,13 +55,13 @@ describe('Get Reviews for a Business', () => {
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body).to.be.an('object');
-        expect(res.body.message).to.equal('Business not found');
+        expect(res.body.message).to.equal('Business not found!');
         done();
       });
   });
   it('Should return 200 if reviews for the Business was retrieved successfully', (done) => {
     request(server)
-      .post('/api/v1/businesses/1/reviews')
+      .get('/api/v1/businesses/1/reviews')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('object');

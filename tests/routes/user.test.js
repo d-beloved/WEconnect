@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import bcrypt from 'bcrypt';
 import server from '../../server/server';
-import { models } from '../../dummyDataModel';
+import models from '../../dummyDataModel';
 
 const { Users } = models;
 
@@ -25,7 +25,6 @@ describe('SignUp User', () => {
       .post('/api/v1/auth/signup')
       .send({
         firstName: 'David',
-        lastName: '',
         email: 'morayodeji@gmail.com',
         password: '123456',
       })
@@ -38,7 +37,7 @@ describe('SignUp User', () => {
   });
   it('Should return 400 if email is invalid', (done) => {
     request(server)
-      .post('api/v1/auth/signup')
+      .post('/api/v1/auth/signup')
       .send({
         firstName: 'David',
         lastName: '\'Keji',
@@ -54,11 +53,11 @@ describe('SignUp User', () => {
   });
   it('Should return 409 if email already exists in database', (done) => {
     request(server)
-      .post('api/v1/auth/signup')
+      .post('/api/v1/auth/signup')
       .send({
         firstName: 'David',
         lastName: '\'Keji',
-        email: 'adaba@yahoo.com',
+        email: 'ay4realch@yahoo.com',
         password: '123456',
       })
       .end((err, res) => {
@@ -70,7 +69,7 @@ describe('SignUp User', () => {
   });
   it('Should return 400 if password is too short', (done) => {
     request(server)
-      .post('api/v1/auth/signup')
+      .post('/api/v1/auth/signup')
       .send({
         firstName: 'David',
         lastName: '\'Keji',
@@ -114,7 +113,6 @@ describe('Login User', () => {
       .post('/api/v1/auth/login')
       .send({
         email: 'andela@gmail.com',
-        password: '',
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
