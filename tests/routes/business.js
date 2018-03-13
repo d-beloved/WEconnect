@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import server from '../../server/server';
 
-describe('Business', () => {
+describe('Register a Business', () => {
   /* Register a Business */
   it('Should return 400 for missing required fields', (done) => {
     request(server)
@@ -41,7 +41,9 @@ describe('Business', () => {
         done();
       });
   });
+});
 
+describe('Modify a Business', () => {
   /* Modify a Business */
   it('Should return 404 if business not found', (done) => {
     request(server)
@@ -83,7 +85,9 @@ describe('Business', () => {
         done();
       });
   });
+});
 
+describe('Delete a Business', () => {
   /* Delete a Business */
   it('Should return 404 if business not found', (done) => {
     request(server)
@@ -105,7 +109,9 @@ describe('Business', () => {
         done();
       });
   });
+});
 
+describe('Retrieve a Business', () => {
   /* Get One Business Detail */
   it('Should return 404 if business not found', (done) => {
     request(server)
@@ -126,7 +132,9 @@ describe('Business', () => {
         done();
       });
   });
+});
 
+describe('Retrieve all Businesses with specific location', () => {
   /* Get all businesses with specific location */
   it('Should return 404 if business with location not found', (done) => {
     request(server)
@@ -147,7 +155,9 @@ describe('Business', () => {
         done();
       });
   });
+});
 
+describe('Retrieve all Businesses in specific category', () => {
   /* Get all businesses with specific category */
   it('Should return 404 if business with category not found', (done) => {
     request(server)
@@ -168,7 +178,9 @@ describe('Business', () => {
         done();
       });
   });
+});
 
+describe('Retrieve all Businesses', () => {
   /* Get all Business in the App */
   it('Should return 404 if no business was found', (done) => {
     request(server)

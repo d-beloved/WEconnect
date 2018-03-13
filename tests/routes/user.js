@@ -18,12 +18,7 @@ const createUser = () => {
 };
 
 // Test for the Signup a user route
-describe('User', () => {
-  before((done) => {
-    createUser();
-    done();
-  });
-
+describe('SignUp User', () => {
   /* SIGN UP */
   it('Should return 400 for missing fields', (done) => {
     request(server)
@@ -104,6 +99,13 @@ describe('User', () => {
         expect(res.body.message).to.equal('The user has been created!');
         done();
       });
+  });
+});
+
+describe('Login User', () => {
+  before((done) => {
+    createUser();
+    done();
   });
 
   /* LOGIN */
