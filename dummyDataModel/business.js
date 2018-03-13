@@ -3,7 +3,7 @@
 const Business = [
   {
     id: 1,
-    Name: 'Clean and soft Fabrics',
+    name: 'Clean and soft Fabrics',
     address: '9, montgomerry way, Yaba, Lagos',
     website: 'www.cleanetsoft.com.ng',
     phoneno: '+234 4057832017',
@@ -15,7 +15,7 @@ const Business = [
 
   {
     id: 2,
-    Name: 'Douché Bank',
+    name: 'Douché Bank',
     address: '103, montgomerry way, Yaba, Lagos Island',
     website: 'www.dbank.com',
     phoneno: '+234 4078467344',

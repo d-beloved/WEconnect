@@ -25,7 +25,7 @@ class BusinessController {
       details: req.body.details || null,
       location: req.body.details,
       category: req.body.category,
-      services: req.body.services,
+      services: req.body.services
     });
     return res.status(201).json({ 
       message: 'Your business has been created!',
@@ -45,14 +45,14 @@ class BusinessController {
   static modifyBusiness(req, res) {
     for (let i = 0; i < Business.length; i += 1) {
       if (Business[i].id === parseInt(req.params.businessId, 10)) {
-        Business[i].name = req.body.name || Business.name;
-        Business[i].address = req.body.address || Business.address;
-        Business[i].website = req.body.website || Business.website;
-        Business[i].phoneno = req.body.phoneno || Business.phoneno;
-        Business[i].details = req.body.details || Business.details;
-        Business[i].location = req.body.details || Business.location;
-        Business[i].category = req.body.category || Business.category;
-        Business[i].services = req.body.services || Business.services;
+        Business[i].name = req.body.name || Business[i].name;
+        Business[i].address = req.body.address || Business[i].address;
+        Business[i].website = req.body.website || Business[i].website;
+        Business[i].phoneno = req.body.phoneno || Business[i].phoneno;
+        Business[i].details = req.body.details || Business[i].details;
+        Business[i].location = req.body.details || Business[i].location;
+        Business[i].category = req.body.category || Business[i].category;
+        Business[i].services = req.body.services || Business[i].services;
         return res.status(200).json({
           message: 'Business updated successfully!',
           error: false
@@ -76,7 +76,7 @@ class BusinessController {
    */
   static deleteBusiness(req, res) {
     for (let i = 0; i < Business.length; i += 1) {
-      if (Business.id === parseInt(req.params.BusinessId, 10)) {
+      if (Business[i].id === parseInt(req.params.businessId, 10)) {
         Business.splice(i, 1);
         return res.status(200).json({
           message: 'Business deleted successfully',
@@ -101,12 +101,8 @@ class BusinessController {
    */
   static getOneBusiness(req, res) {
     for (let i = 0; i < Business.length; i += 1) {
-      if (Business.id === parseInt(req.params.Businessid, 10)) {
-        return res.status(200).json({
-          Business: Business[i],
-          message: 'Success',
-          error: false
-        });
+      if (Business[i].id === parseInt(req.params.businessId, 10)) {
+        return res.status(200).json(Business[i]);
       }
     }
     return res.status(404).json({
@@ -122,11 +118,9 @@ class BusinessController {
    *
    * @param{Object} res - route response
    *
-   * @param{Function} next - next function
-   * 
    * @return{json} Details of all the business
    */
-  static getAllBusiness(req, res, next) {
+  static getAllBusiness(req, res) {
     return res.status(200).json({
       Business,
       error: false

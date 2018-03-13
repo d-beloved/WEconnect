@@ -40,7 +40,6 @@ router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
-    Validation.checkParamInt('phoneno'),
     BusinessController.createBusiness
   );
 
@@ -71,16 +70,12 @@ router.route('/api/v1/businesses')
 router.route('/api/v1/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
-    Validation.checkParamInt('businessId'),
     Validation.checkBodyContains('name', 'reviews'),
     ReviewsController.addReview
   );
 
 // Get all Reviews for a business
 router.route('/api/v1/businesses/:businessId/reviews')
-  .get(
-    Validation.checkParamInt('businessId'),
-    ReviewsController.getReviews
-  );
+  .get(ReviewsController.getReviews);
 
 export default router;

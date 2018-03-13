@@ -26,6 +26,12 @@ class SearchFilter {
           locate.push(Business[i]);
         }
       }
+      if (locate.length === 0) {
+        return res.status(404).json({
+          message: 'There is no business with that location',
+          error: true
+        });
+      }
       return res.status(200).json(locate);
     }
     next();
@@ -50,6 +56,12 @@ class SearchFilter {
         if (category.toLowerCase() === Business[i].category.toLowerCase()) {
           categories.push(Business[i]);
         }
+      }
+      if (categories.length === 0) {
+        return res.status(404).json({
+          message: 'There is no business in that category',
+          error: true
+        });
       }
       return res.status(200).json(categories);
     }
