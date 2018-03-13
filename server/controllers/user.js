@@ -24,7 +24,7 @@ class UserController {
       req.body.password.length < 6
     ) {
       res.status(400).json({
-        message: 'the password is too short! - make sure it is at least 6 characters',
+        message: 'The password is too short! - make sure it is at least 6 characters',
         error: true
       });
     }
