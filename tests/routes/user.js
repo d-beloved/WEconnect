@@ -101,7 +101,7 @@ describe('User', () => {
       .end((err, res) => {
         expect(res.status).to.equal(201);
         expect(res.body).to.be.an('object');
-        expect(res.body.message).to.equal('The user has been created!')
+        expect(res.body.message).to.equal('The user has been created!');
         done();
       });
   });
