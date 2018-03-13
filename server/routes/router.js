@@ -78,4 +78,12 @@ router.route('/api/v1/businesses/:businessId/reviews')
 router.route('/api/v1/businesses/:businessId/reviews')
   .get(ReviewsController.getReviews);
 
+// 404 route
+router.route('*')
+  .all((req, res) => {
+    res.status(404).send({
+      message: 'That route does not exist!'
+    });
+  });
+
 export default router;

@@ -15,13 +15,10 @@ server.use(logger('dev'));
 
 // set router for api endpoints
 // router(app);
-server.use('/api/v1', router);
+server.use('/', router);
 
-// Set up all default catch-all route that sends a message in JSON format
-server.get('*', (req, res) => res.status(404).send({
-  message: 'That route does not exist'
-}));
 
+// set the port for the server
 server.listen('3001', () => {
   /* eslint-disable no-console */
   console.log('WEconnect App is listening on port 3001');
