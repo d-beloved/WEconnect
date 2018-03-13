@@ -72,8 +72,8 @@ class Validation {
           message: 'Someone beat you to it. Email already taken! Sorry Champ!',
         });
       }
-      next();
     }
+    next();
   }
 
   /**
@@ -95,7 +95,6 @@ class Validation {
         message: 'Bad email format!'
       });
     }
-    next();
   }
 
   /**

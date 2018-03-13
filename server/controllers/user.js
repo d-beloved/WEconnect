@@ -56,7 +56,7 @@ class UserController {
     for (let i = 0; i < Users.length; i += 1) {
       if (Users[i].email === req.body.email) {
         // compare the password with the hashed one
-        if (bcrypt.compare(Users[i].password, req.body.password)) {
+        if (bcrypt.compareSync(req.body.password, Users[i].password)) {
           return res.status(200).json({
             message: 'You are logged in!',
             error: false
