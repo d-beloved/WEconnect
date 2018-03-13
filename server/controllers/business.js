@@ -27,7 +27,7 @@ class BusinessController {
       category: req.body.category,
       services: req.body.services
     });
-    return res.status(201).json({ 
+    return res.status(201).json({
       message: 'Your business has been created!',
       error: false
     });
