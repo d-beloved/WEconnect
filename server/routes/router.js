@@ -70,7 +70,7 @@ router.route('/api/v1/businesses')
 router.route('/api/v1/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
-    Validation.checkBodyContains('name', 'reviews'),
+    Validation.checkBodyContains('name', 'review'),
     ReviewsController.addReview
   );
 
