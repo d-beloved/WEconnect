@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/d-beloved/WEconnect.svg?branch=development)](https://travis-ci.org/d-beloved/WEconnect)
+
 # WEconnect
 WeConnect provides a platform that brings businesses and individuals together.
 
