@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/routes/*.test.js --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/d-beloved/WEconnect#readme",
   "dependencies": {
+    "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "email-validator": "^1.1.1",
@@ -34,11 +35,14 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "nodemon": "^1.17.1"
+    "mocha": "^5.0.4",
+    "nodemon": "^1.17.1",
+    "supertest": "^3.0.0"
   }
 }

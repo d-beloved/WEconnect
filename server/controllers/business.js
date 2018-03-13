@@ -27,7 +27,7 @@ class BusinessController {
       category: req.body.category,
       services: req.body.services
     });
-    return res.status(201).json({ 
+    return res.status(201).json({
       message: 'Your business has been created!',
       error: false
     });
@@ -121,6 +121,12 @@ class BusinessController {
    * @return{json} Details of all the business
    */
   static getAllBusiness(req, res) {
+    if (Business.length < 1) {
+      return res.status(404).json({
+        message: 'No Business found!',
+        error: true
+      });
+    }
     return res.status(200).json({
       Business,
       error: false

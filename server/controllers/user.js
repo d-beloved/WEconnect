@@ -24,23 +24,24 @@ class UserController {
       req.body.password.length < 6
     ) {
       res.status(400).json({
-        message: 'the password is too short! - make sure it is at least 6 characters',
+        message: 'The password is too short! - make sure it is at least 6 characters',
         error: true
       });
+    } else {
+      // Hash password to save in the dummydatabase
+      const password = bcrypt.hashSync(req.body.password, 10);
+      Users.push({
+        id: Users.length + 1,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password
+      });
+      return res.status(201).json({
+        message: 'The user has been created!',
+        error: false
+      });
     }
-    // Hash password to save in the dummydatabase
-    const password = bcrypt.hashSync(req.body.password, 10);
-    Users.push({
-      id: Users.length + 1,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password
-    });
-    return res.status(201).json({
-      message: 'The user has been created!',
-      error: false
-    });
   }
 
   /**
