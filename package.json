@@ -5,9 +5,12 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server/server.js",
-    "test": "nyc --reporter=html mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
+    "lint": "eslint ./ || true",
+    "test": "nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
     "test2": "mocha tests/routes/*.test.js --exit --compilers js:babel-register",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
   "repository": {
     "type": "git",
