@@ -33,10 +33,12 @@
     "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "email-validator": "^1.1.1",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
-    "swagger-ui-express": "^2.0.15"
+    "swagger-ui-express": "^2.0.15",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
