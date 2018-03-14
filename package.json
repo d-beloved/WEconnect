@@ -5,7 +5,9 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server/server.js",
-    "test": "mocha tests/routes/*.test.js --exit --compilers js:babel-register"
+    "test": "nyc --reporter=html mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
+    "test2": "mocha tests/routes/*.test.js --exit --compilers js:babel-register",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -36,13 +38,16 @@
     "babel-eslint": "^8.2.2",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "mocha": "^5.0.4",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.17.1",
+    "nyc": "^11.6.0",
     "supertest": "^3.0.0"
   }
 }
