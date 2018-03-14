@@ -12,13 +12,13 @@ const router = express.Router();
 /** ********** My API ENDPOINTS **************** */
 
 // Welcome message route
-router.route('/api/v1')
+router.route('/')
   .get((req, res) => {
     res.status(200).send({ message: 'Welcome to WEconnect app! Your one stop place to get all your business needs answered' });
   });
 
 // Signup
-router.route('/api/v1/auth/signup')
+router.route('/auth/signup')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
@@ -28,7 +28,7 @@ router.route('/api/v1/auth/signup')
   );
 
 // Login
-router.route('/api/v1/auth/login')
+router.route('/auth/login')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('email', 'password'),
@@ -36,7 +36,7 @@ router.route('/api/v1/auth/login')
   );
 
 // Register a business
-router.route('/api/v1/businesses')
+router.route('/businesses')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
@@ -44,22 +44,22 @@ router.route('/api/v1/businesses')
   );
 
 // Modify a Business
-router.route('/api/v1/businesses/:businessId')
+router.route('/businesses/:businessId')
   .put(
     Validation.trimBodyValues,
     BusinessController.modifyBusiness
   );
 
 // Delete a Business
-router.route('/api/v1/businesses/:businessId')
+router.route('/businesses/:businessId')
   .delete(BusinessController.deleteBusiness);
 
 // Get a Business details
-router.route('/api/v1/businesses/:businessId')
+router.route('/businesses/:businessId')
   .get(BusinessController.getOneBusiness);
 
 // Get all BUsiness in the App
-router.route('/api/v1/businesses')
+router.route('/businesses')
   .get(
     SearchFilter.byLocation,
     SearchFilter.byCategory,
@@ -67,7 +67,7 @@ router.route('/api/v1/businesses')
   );
 
 // Post reviews for a business
-router.route('/api/v1/businesses/:businessId/reviews')
+router.route('/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'review'),
@@ -75,7 +75,7 @@ router.route('/api/v1/businesses/:businessId/reviews')
   );
 
 // Get all Reviews for a business
-router.route('/api/v1/businesses/:businessId/reviews')
+router.route('/businesses/:businessId/reviews')
   .get(ReviewsController.getReviews);
 
 // 404 route

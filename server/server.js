@@ -14,8 +14,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(logger('dev'));
 
 // set router for api endpoints
-// router(app);
-server.use('/', router);
+server.use('/api/v1', router);
 
 
 // set the port for the server
