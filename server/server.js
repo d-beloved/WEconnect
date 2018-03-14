@@ -19,9 +19,10 @@ server.use('/', router);
 
 
 // set the port for the server
-server.listen('3001', () => {
+const port = process.env.PORT || 3001;
+server.listen(port, () => {
   /* eslint-disable no-console */
-  console.log('WEconnect App is listening on port 3001');
+  console.log(`WEconnect App Listening on port ${port}!`);
 });
 
 // This will be our application entry. Our server is setup here.
