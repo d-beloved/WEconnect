@@ -7,5 +7,5 @@ branches:
 script:
  - npm test
 after_success:
-  - CODECLIMATE_REPO_TOKEN=193cae913542dcffca3a12c1e2aa8b854cba67e2630d71a1a429708edb7112b6 codeclimate-test-reporter < ./coverage/lcov.info
+  - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < coverage/lcov.info
   - npm run coverage
