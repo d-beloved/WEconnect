@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/d-beloved/WEconnect.svg?branch=development)](https://travis-ci.org/d-beloved/WEconnect)
 
+[![Coverage Status](https://coveralls.io/repos/github/d-beloved/WEconnect/badge.svg?branch=development)](https://coveralls.io/github/d-beloved/WEconnect?branch=development)
+
 # WEconnect
 WeConnect provides a platform that brings businesses and individuals together.
 
