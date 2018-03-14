@@ -7,7 +7,7 @@ import YAML from 'yamljs';
 import router from './routes/router';
 
 // Set up the Swagger document for API documentation
-const swaggerDocument = YAML.load(`${process.cwd()}/swagger.yaml`);
+//const swaggerDocument = YAML.load(`${process.cwd()}/swagger.yaml`);
 
 // Set up the express app
 const server = express();
