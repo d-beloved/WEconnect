@@ -20,7 +20,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(logger('dev'));
 
 // set router for api endpoints
-server.use('/api/v1', router);
+server.use('/', router);
 
 // for serving the Swagger documentation
 server.use(cors({ credentials: true, origin: true }));

@@ -18,7 +18,7 @@ router.route('/')
   });
 
 // Signup
-router.route('/auth/signup')
+router.route('/api/v1/auth/signup')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
@@ -28,7 +28,7 @@ router.route('/auth/signup')
   );
 
 // Login
-router.route('/auth/login')
+router.route('/api/v1/auth/login')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('email', 'password'),
@@ -36,7 +36,7 @@ router.route('/auth/login')
   );
 
 // Register a business
-router.route('/businesses')
+router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
@@ -44,22 +44,22 @@ router.route('/businesses')
   );
 
 // Modify a Business
-router.route('/businesses/:businessId')
+router.route('/api/v1/businesses/:businessId')
   .put(
     Validation.trimBodyValues,
     BusinessController.modifyBusiness
   );
 
 // Delete a Business
-router.route('/businesses/:businessId')
+router.route('/api/v1/businesses/:businessId')
   .delete(BusinessController.deleteBusiness);
 
 // Get a Business details
-router.route('/businesses/:businessId')
+router.route('/api/v1/businesses/:businessId')
   .get(BusinessController.getOneBusiness);
 
 // Get all BUsiness in the App
-router.route('/businesses')
+router.route('/api/v1/businesses')
   .get(
     SearchFilter.byLocation,
     SearchFilter.byCategory,
@@ -67,7 +67,7 @@ router.route('/businesses')
   );
 
 // Post reviews for a business
-router.route('/businesses/:businessId/reviews')
+router.route('/api/v1/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'review'),
@@ -75,7 +75,7 @@ router.route('/businesses/:businessId/reviews')
   );
 
 // Get all Reviews for a business
-router.route('/businesses/:businessId/reviews')
+router.route('/api/v1/businesses/:businessId/reviews')
   .get(ReviewsController.getReviews);
 
 // 404 route
