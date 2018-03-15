@@ -4,7 +4,8 @@
   "description": "An app that connects businesses to individuals who might need their offered services",
   "main": "server/server.js",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node server/server.js",
+    "start": "babel-node server/server.js",
+    "start:dev": "nodemon --watch server --exec babel-node server/server.js",
     "lint": "eslint ./ || true",
     "test": "nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
     "test2": "mocha tests/routes/*.test.js --exit --compilers js:babel-register",
@@ -32,9 +33,12 @@
     "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "email-validator": "^1.1.1",
     "express": "^4.16.2",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "swagger-ui-express": "^2.0.15",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

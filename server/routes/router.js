@@ -12,7 +12,7 @@ const router = express.Router();
 /** ********** My API ENDPOINTS **************** */
 
 // Welcome message route
-router.route('/api/v1')
+router.route('/')
   .get((req, res) => {
     res.status(200).send({ message: 'Welcome to WEconnect app! Your one stop place to get all your business needs answered' });
   });
