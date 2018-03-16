@@ -11,7 +11,7 @@ businesses they have interacted with.
 
 The static version of WEconnect app can be accessed on [github pages](https://d-beloved.github.io/WEconnect/template).
 
-The first release of the app using in-memory/dummy data is hosted on [heroku](https://ayo-weconnect-dummy.herokuapp.com/) :smile:.
+The first release of the app using in-memory/dummy data is hosted on [heroku](https://ayo-weconnect-dummy.herokuapp.com/).
 
 ## Made With
   ### Template
@@ -77,8 +77,7 @@ The first release of the app using in-memory/dummy data is hosted on [heroku](ht
   * GET : ```/api/v1/businesses/<businessId>/reviews```
 
 
-Check [here]
-(https://ayo-weconnect-dummy.herokuapp.com/api-docs) for full documentation.
+Check [here](https://ayo-weconnect-dummy.herokuapp.com/api-docs) for full documentation.
 
 ## License and Copyright
 &copy; Ayodeji Moronkeji
