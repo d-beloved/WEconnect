@@ -11,7 +11,7 @@ businesses they have interacted with.
 
 The static version of WEconnect app can be accessed on [github pages](https://d-beloved.github.io/WEconnect/template).
 
-The first release of the app using in-memory/dummy data is hosted on [heroku](https://ayo-weconnect-dummy.herokuapp.com/).
+The first release of the **app-server** using in-memory/dummy data is hosted on [heroku](https://ayo-weconnect-dummy.herokuapp.com/).
 
 ## Made With
   ### Template
