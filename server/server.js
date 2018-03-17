@@ -4,7 +4,7 @@ import logger from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
-import router from './routes/router';
+import router from './routes';
 
 // Set up the Swagger document for API documentation
 const swaggerDocument = YAML.load(`${process.cwd()}/server/swagger.yaml`);
@@ -19,12 +19,12 @@ server.use(bodyParser.urlencoded({ extended: false }));
 // Log requests to the console.
 server.use(logger('dev'));
 
-// set router for api endpoints
-server.use('/', router);
-
 // for serving the Swagger documentation
 server.use(cors({ credentials: true, origin: true }));
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// set router for api endpoints
+server.use('/', router);
 
 // set the port for the server
 const port = process.env.PORT || 3001;
