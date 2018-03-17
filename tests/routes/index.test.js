@@ -10,7 +10,7 @@ describe('/GET: / Tests for index routes', () => {
   });
   it('should return status code 200 when user visits the index route', (done) => {
     request(server)
-      .get('/')
+      .get('/api/v1')
       .expect(200)
       .end(done);
   });
