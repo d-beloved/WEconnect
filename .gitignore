@@ -57,3 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+/package-lock.json
+
+# Dummy data model used in challenge 2
+dummyDataModel
