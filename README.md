@@ -11,6 +11,7 @@ businesses they have interacted with.
 
 The static version of WEconnect app can be accessed on [github pages](https://d-beloved.github.io/WEconnect/template).
 
+=======
 The first release of the **app-server** using in-memory/dummy data is hosted on [heroku](https://ayo-weconnect-dummy.herokuapp.com/api/v1).
 
 ## Made With
@@ -20,6 +21,7 @@ The first release of the **app-server** using in-memory/dummy data is hosted on 
     * Html for the web pages
     * Javascript to add some behaviour
 
+=======
  ### Server
     * Nodejs for server-side logic
     * Express for api routes implementation
@@ -83,6 +85,4 @@ Check [here](https://ayo-weconnect-dummy.herokuapp.com/api-docs) for full docume
 &copy; Ayodeji Moronkeji
 
 Licensed under the [MIT License](LICENSE).
-
-
 More details coming in soon...
