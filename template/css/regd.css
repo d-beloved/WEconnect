@@ -13,9 +13,13 @@ body {
     }
     .stylish-form h2 {
       color:#c73606;
-      margin-top:50px;
-      
+      margin-top:50px;  
     }
+    
+    .merge {
+      margin-bottom: 2rem;
+    }
+
     .font_white {
       color:#fff !important;
     }
