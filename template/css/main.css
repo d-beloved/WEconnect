@@ -31,7 +31,7 @@ body {
   max-width: 40rem;
 }
 
-.bar {
+.filter {
   
 }
 
@@ -53,7 +53,6 @@ ul > li > a {
 .card {
   float: left;
   width: 33.333%;
-  height: 30%;
   padding: .75rem;
   margin-bottom: 2rem;
   border: 0;
@@ -70,7 +69,7 @@ ul > li > a {
 .category-item.card {
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  border: 2px solid #d6d6d6;
+  border: 8px solid #d6d6d6;
 }
 
 .category-item.card:hover {
@@ -79,7 +78,7 @@ ul > li > a {
   transform: translateY(-5px);
 }
 .category-item.yellow:hover {
-  border-color: #c73606;
+  border-color: #f0f0f0;
 }
 
 footer {
