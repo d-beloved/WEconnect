@@ -58,14 +58,11 @@
                 <span id="search_concept">Filter by</span>
                 <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a href="#location">Location</a>
-                </li>
-                <li>
-                  <a href="#category">category</a>
-                </li>
-              </ul>
+              <div class="dropdown-menu filter" role="menu">
+                <a class="dropdown-item" href="#location">Location</a>
+                <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#category">Category</a>
+              </div>
             </div>
             <input type="hidden" name="search_param" value="all" id="search_param">
             <input type="text" class="form-control" name="x" placeholder="Search for businesses here">
