@@ -3,7 +3,7 @@ node_js:
  - "8.9.1"
 branches:
   only:
-    - development
+    - develop
 script:
  - npm test
 after_success:
