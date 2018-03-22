@@ -29,7 +29,7 @@ class BusinessController {
         userId: req.user.id
       })
       .then((business) => {
-        res.status(201).send({ message: 'Your business has been created!', center });
+        res.status(201).send({ message: 'Your business has been created!', business });
       })
       .catch((err) => {
         res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
@@ -52,14 +52,14 @@ class BusinessController {
         if (business) {
           business
             .update({
-              name = req.body.name || business.name,
-              address = req.body.address || business.address,
-              website = req.body.website || business.website,
-              phoneno = req.body.phoneno || business.phoneno,
-              details = req.body.details || business.details,
-              location = req.body.details || business.location,
-              category = req.body.category || business.category,
-              services = req.body.services || business.services
+              name: req.body.name || business.name,
+              address: req.body.address || business.address,
+              website: req.body.website || business.website,
+              phoneno: req.body.phoneno || business.phoneno,
+              details: req.body.details || business.details,
+              location: req.body.details || business.location,
+              category: req.body.category || business.category,
+              services: req.body.services || business.services
             })
             .then((modifiedBusiness) => {
               res.status(200).send({ message: 'Business updated successfully!', business: modifiedBusiness });
@@ -141,7 +141,7 @@ class BusinessController {
         if (businesses) {
           res.status(200).send({ message: 'All businesses delivered', businesses });
         } else {
-          res.status(404).send({ message: 'No Business found!'});
+          res.status(404).send({ message: 'No Business found!' });
         }
       })
       .catch((err) => {
