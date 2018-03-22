@@ -40,7 +40,7 @@ router.route('/api/v1/auth/login')
 router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
-    Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
+    Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
     authenticate,
     BusinessController.createBusiness
   );
