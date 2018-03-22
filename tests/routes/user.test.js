@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import request from 'supertest';
 import bcrypt from 'bcrypt';
 import server from '../../server/server';
-import models from '../../dummyDataModel';
+import db from '../../server/models';
 
-const { Users } = models;
+const { Users } = db;
 
 const hash = bcrypt.hashSync;
 
