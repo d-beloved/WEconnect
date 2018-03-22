@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 /**
- * @description check if logged in user has a valid session token
+ * @description check if logged in user has a valid session token for protected routes
  *
  * @param{object} req - api request
  *
