@@ -1,14 +1,15 @@
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import models from '../../dummyDataModel';
+import db from '../models';
 
-const { Users } = models;
+const { User } = db;
 
 /**
  * @description - Creates the signup and login component.
  */
 class UserController {
   /**
-   * @description - Registers a new user with a hashed password.
+   * @description - Registers a new user with a hashed password and creates a token for the user.
    *
    * @param {Object} req - api request.
    *
@@ -23,29 +24,39 @@ class UserController {
       req.body.password === null ||
       req.body.password.length < 6
     ) {
-      res.status(400).json({
+      res.status(400).send({
         message: 'The password is too short! - make sure it is at least 6 characters',
-        error: true
       });
     } else {
-      // Hash password to save in the dummydatabase
+      // Hash password to save in the database
       const password = bcrypt.hashSync(req.body.password, 10);
-      Users.push({
-        id: Users.length + 1,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password
-      });
-      return res.status(201).json({
-        message: 'The user has been created!',
-        error: false
-      });
+      User
+        .create({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          password
+        })
+        .then((user) => {
+          const token = jwt.sign( // this creates a token that lasts for an hour
+            { id: user.id },
+            process.env.SECRET_KEY,
+            { expiresIn: '60m' },
+          );
+          const safeUser = user;
+          safeUser.password = 'xxxxxxxxxxxxxxx';
+          res.status(201).send({
+            message: 'The user has been created!', user: safeUser, token
+          });
+        })
+        .catch((err) => {
+          res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+        });
     }
   }
 
   /**
-   * @description - Allows a signed up user to login
+   * @description - Creates a session token for the user
    *
    * @param{Object} req - api request
    *
@@ -54,25 +65,29 @@ class UserController {
    * @return{string} login status
    */
   static loginUser(req, res) {
-    for (let i = 0; i < Users.length; i += 1) {
-      if (Users[i].email === req.body.email) {
-        // compare the password with the hashed one
-        if (bcrypt.compareSync(req.body.password, Users[i].password)) {
-          return res.status(200).json({
-            message: 'You are logged in!',
-            error: false
+    User
+      .findOne({
+        where: { email: req.body.email },
+      })
+      .then((user) => {
+        if (user) { // If the user exists
+          // compare hashed password
+          bcrypt.compareSync(req.body.password, user.password).then((check) => {
+            if (!check) { // IF the password does not match
+              res.status(401).send({ message: 'wrong password!' });
+            } else {
+              // creates a token that lasts for an hour
+              const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '60m' });
+              res.status(200).send({ message: 'You are logged in!', token });
+            }
           });
+        } else {
+          res.status(401).send({ message: 'Wrong email and/or Password!' });
         }
-        return res.status(401).json({
-          message: 'Wrong password!',
-          error: true
-        });
-      }
-    }
-    return res.status(401).json({
-      message: 'Wrong email and/or Password!',
-      error: true
-    });
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 }
 

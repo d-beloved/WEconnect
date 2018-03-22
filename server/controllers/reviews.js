@@ -1,6 +1,6 @@
-import models from '../../dummyDataModel';
+import db from '../models';
 
-const { Reviews, Business } = models;
+const { Reviews } = db;
 
 /**
  * @description - Manages the reviews for each business
@@ -18,23 +18,18 @@ class ReviewsController {
    * @return {object} - status code and error message
    */
   static addReview(req, res) {
-    for (let i = 0; i < Business.length; i += 1) {
-      if (Business[i].id === parseInt(req.params.businessId, 10)) {
-        Reviews.push({
-          id: Reviews.length + 1,
-          name: req.body.name,
-          review: req.body.review
-        });
-        return res.status(201).json({
-          message: 'Review accepted. Thanks a lot!',
-          error: false
-        });
-      } 
-    }
-    return res.status(404).json({
-      message: 'Business not found',
-      error: true
-    });
+    Reviews
+      .create({
+        review: req.body.review,
+        userId: req.user.id,
+        businessId: req.body.business.id
+      })
+      .then((reviews) => {
+        res.status(201).send({ message: 'Review accepted. Thanks a lot!', reviews });
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 
   /**
@@ -49,18 +44,18 @@ class ReviewsController {
    * @return {object} - status code and error message
    */
   static getReviews(req, res) {
-    for (let i = 0; i < Business.length; i += 1) {
-      if (Business[i].id === parseInt(req.params.businessId, 10)) {
-        return res.status(200).json({
-          Reviews,
-          error: false
-        });
-      }
-    }
-    return res.status(404).json({
-      message: 'Business not found!',
-      error: true
-    });
+    Reviews
+      .findAll({ where: { businessId: req.business.id } })
+      .then((reviews) => {
+        if (reviews) {
+          res.status(200).send({ message: 'All reviews delivered!', reviews });
+        } else {
+          res.status(404).send({ message: 'Reviews not found!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 }
 

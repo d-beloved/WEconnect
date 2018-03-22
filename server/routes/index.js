@@ -1,4 +1,5 @@
 import express from 'express';
+import authenticate from '../middlewares/auth';
 import UserController from '../controllers/user';
 import BusinessController from '../controllers/business';
 import ReviewsController from '../controllers/reviews';
@@ -22,8 +23,8 @@ router.route('/api/v1/auth/signup')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
-    Validation.checkRequestEmailIsEmail,
-    Validation.checkEmailNotExists,
+    Validation.validateEmail,
+    Validation.checkEmailExistence,
     UserController.createUser
   );
 
@@ -39,7 +40,8 @@ router.route('/api/v1/auth/login')
 router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
-    Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
+    Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
+    authenticate,
     BusinessController.createBusiness
   );
 
@@ -47,22 +49,25 @@ router.route('/api/v1/businesses')
 router.route('/api/v1/businesses/:businessId')
   .put(
     Validation.trimBodyValues,
+    authenticate,
     BusinessController.modifyBusiness
   );
 
 // Delete a Business
 router.route('/api/v1/businesses/:businessId')
-  .delete(BusinessController.deleteBusiness);
+  .delete(
+    authenticate,
+    BusinessController.deleteBusiness
+  );
 
 // Get a Business details
 router.route('/api/v1/businesses/:businessId')
-  .get(BusinessController.getOneBusiness);
+  .get(BusinessController.getBusiness);
 
 // Get all BUsiness in the App
 router.route('/api/v1/businesses')
   .get(
-    SearchFilter.byLocation,
-    SearchFilter.byCategory,
+    SearchFilter.byLocationOrCategory,
     BusinessController.getAllBusiness
   );
 
@@ -71,6 +76,7 @@ router.route('/api/v1/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'review'),
+    authenticate,
     ReviewsController.addReview
   );
 
