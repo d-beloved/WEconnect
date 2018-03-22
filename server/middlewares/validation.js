@@ -48,7 +48,9 @@ class Validation {
     if (req.body) {
       Object.keys(req.body).forEach((k) => {
         const value = req.body[k];
-        if ((typeof value === 'string' || value instanceof String) && value !== undefined) req.body[k] = req.body[k].trim(); // trim value if body exist
+        // trims value on either side if body exist
+        if ((typeof value === 'string' || value instanceof String)
+        && value !== undefined) req.body[k] = req.body[k].trim();
       });
     }
     next();
