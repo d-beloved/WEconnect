@@ -1,6 +1,6 @@
-import models from '../../dummyDataModel';
+import db from '../models';
 
-const { Business } = models;
+const { Business, Reviews } = db;
 
 /**
  * @description - creates the BUsiness components for creation, updating and deleting businesses
@@ -16,21 +16,24 @@ class BusinessController {
    * @return{json} registered business details
    */
   static createBusiness(req, res) {
-    Business.push({
-      id: Business.length + 1,
-      name: req.body.name,
-      address: req.body.address || null,
-      website: req.body.website || null,
-      phoneno: req.body.phoneno,
-      details: req.body.details || null,
-      location: req.body.details,
-      category: req.body.category,
-      services: req.body.services
-    });
-    return res.status(201).json({
-      message: 'Your business has been created!',
-      error: false
-    });
+    Business
+      .create({
+        name: req.body.name,
+        address: req.body.address,
+        website: req.body.website || null,
+        phoneno: req.body.phoneno,
+        details: req.body.details,
+        location: req.body.details,
+        category: req.body.category,
+        services: req.body.services,
+        userId: req.user.id
+      });
+      .then((business) => {
+        res.status(201).send({ message: 'Your business has been created!', center });
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 
   /**
@@ -43,26 +46,31 @@ class BusinessController {
    * @return{json} edited Business response
    */
   static modifyBusiness(req, res) {
-    for (let i = 0; i < Business.length; i += 1) {
-      if (Business[i].id === parseInt(req.params.businessId, 10)) {
-        Business[i].name = req.body.name || Business[i].name;
-        Business[i].address = req.body.address || Business[i].address;
-        Business[i].website = req.body.website || Business[i].website;
-        Business[i].phoneno = req.body.phoneno || Business[i].phoneno;
-        Business[i].details = req.body.details || Business[i].details;
-        Business[i].location = req.body.details || Business[i].location;
-        Business[i].category = req.body.category || Business[i].category;
-        Business[i].services = req.body.services || Business[i].services;
-        return res.status(200).json({
-          message: 'Business updated successfully!',
-          error: false
-        });
-      }
-    }
-    return res.status(404).json({
-      message: 'Business not found!',
-      error: true
-    });
+    Business
+      .findOne({ where: { id: req.params.businessId } })
+      .then((business) => {
+        if (business) {
+          business
+            .update({
+              name = req.body.name || Business.name,
+              address = req.body.address || business.address,
+              website = req.body.website || business.website,
+              phoneno = req.body.phoneno || business.phoneno,
+              details = req.body.details || business.details,
+              location = req.body.details || business.location,
+              category = req.body.category || business.category,
+              services = req.body.services || business.services
+            })
+            .then((modifiedBusiness) => {
+              res.status(200).send({ message: 'Business updated successfully!' business: modifiedBusiness });
+            });
+        } else {
+          res.status(404).send({ message: 'Business not found!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 
   /**
@@ -75,23 +83,22 @@ class BusinessController {
    * @return{json} status of the request
    */
   static deleteBusiness(req, res) {
-    for (let i = 0; i < Business.length; i += 1) {
-      if (Business[i].id === parseInt(req.params.businessId, 10)) {
-        Business.splice(i, 1);
-        return res.status(200).json({
-          message: 'Business deleted successfully',
-          error: false
-        });
-      }
-    }
-    return res.status(404).json({
-      message: 'Business not found!',
-      error: true
-    });
+    Business
+      .findOne({ where: { id: req.params.businessId } })
+      .then((business) => {
+        if (business) {
+          business.destroy().then(res.status(200).send({ message: 'Business deleted successfully' }));
+        } else {
+          res.status(404).send({ message: 'Business not found!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 
   /**
-   * @description - Get a Business' detail
+   * @description - Get a Business' detail with the associated reviews
    *
    * @param{Object} req - api request
    *
@@ -99,16 +106,23 @@ class BusinessController {
    *
    * @return{json} Registered business details
    */
-  static getOneBusiness(req, res) {
-    for (let i = 0; i < Business.length; i += 1) {
-      if (Business[i].id === parseInt(req.params.businessId, 10)) {
-        return res.status(200).json(Business[i]);
-      }
-    }
-    return res.status(404).json({
-      message: 'Business not found!',
-      error: true
-    });
+  static getBusiness(req, res) {
+    Business
+      .findById(req.params.businessId, {
+        include: [
+          { model: Reviews, as: 'reviews' },
+        ],
+      })
+      .then((business) => {
+        if (business) {
+          res.status(200).send({ message: 'Business delivered', business });
+        } else {
+          res.status(404).send({ message: 'Business not found!' });
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 
   /**
@@ -121,16 +135,18 @@ class BusinessController {
    * @return{json} Details of all the business
    */
   static getAllBusiness(req, res) {
-    if (Business.length < 1) {
-      return res.status(404).json({
-        message: 'No Business found!',
-        error: true
+    Business
+      .all()
+      .then((businesses) => {
+        if (businesses) {
+          res.status(200).send({ message: 'All businesses delivered', businesses });
+        } else {
+          res.status(404).send({ message: 'No Business found!'});
+        }
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors : err.message });
       });
-    }
-    return res.status(200).json({
-      Business,
-      error: false
-    });
   }
 }
 

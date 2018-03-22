@@ -41,6 +41,7 @@ router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'location', 'category', 'services'),
+    authenticate,
     BusinessController.createBusiness
   );
 
@@ -48,12 +49,16 @@ router.route('/api/v1/businesses')
 router.route('/api/v1/businesses/:businessId')
   .put(
     Validation.trimBodyValues,
+    authenticate,
     BusinessController.modifyBusiness
   );
 
 // Delete a Business
 router.route('/api/v1/businesses/:businessId')
-  .delete(BusinessController.deleteBusiness);
+  .delete(
+    authenticate,
+    BusinessController.deleteBusiness
+  );
 
 // Get a Business details
 router.route('/api/v1/businesses/:businessId')
