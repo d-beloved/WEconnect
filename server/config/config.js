@@ -23,7 +23,7 @@ const config = {
     use_env_variable: 'DATABASE_URL',
     dialect: 'postgres'
   }
-}
+};
 
 export default config[process.env.NODE_ENV || 'development'];
 
