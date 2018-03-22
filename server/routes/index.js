@@ -1,4 +1,5 @@
 import express from 'express';
+import authenticate from '../middlewares/auth';
 import UserController from '../controllers/user';
 import BusinessController from '../controllers/business';
 import ReviewsController from '../controllers/reviews';
