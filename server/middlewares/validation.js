@@ -1,7 +1,7 @@
 import validator from 'email-validator';
-import models from '../../dummyDataModel';
+import db from '../models';
 
-const { Users } = models;
+const { User } = db;
 
 /**
  * @description - This validates all the entries into the app
@@ -65,15 +65,19 @@ class Validation {
    *
    * @return{undefined}
    */
-  static checkEmailNotExists(req, res, next) {
-    for (let i = 0; i < Users.length; i += 1) {
-      if (Users[i].email === req.body.email) {
-        return res.status(409).json({
-          message: 'Someone beat you to it. Email already taken! Sorry Champ!',
-        });
-      }
-    }
-    next();
+  static checkEmailExistence(req, res, next) {
+    User
+      .findOne({
+        where: { email: req.body.email },
+      })
+      .then((user) => {
+        if (user) {
+          res.status(409).send({ message: 'Someone beat you to it. Email already taken! Sorry Champ!' });
+        } else next();
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
   }
 
   /**
@@ -87,7 +91,7 @@ class Validation {
    *
    * @return{undefined}
    */
-  static checkRequestEmailIsEmail(req, res, next) {
+  static validateEmail(req, res, next) {
     if (validator.validate(req.body.email)) {
       next();
     } else {

@@ -44,13 +44,13 @@ class ReviewsController {
    * @return {object} - status code and error message
    */
   static getReviews(req, res) {
-    Business
+    Reviews
       .findAll({ where: { businessId: req.business.id } })
-      .then((businesses) => {
-        if (businesses) {
-          res.status(200).send({ message: 'All reviews delivered!', businesses });
+      .then((reviews) => {
+        if (reviews) {
+          res.status(200).send({ message: 'All reviews delivered!', reviews });
         } else {
-          res.status(404).send({ message: 'Business not found!' });
+          res.status(404).send({ message: 'Reviews not found!' });
         }
       })
       .catch((err) => {

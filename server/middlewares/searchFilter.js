@@ -1,13 +1,13 @@
-import models from '../../dummyDataModel';
+import db from '../models';
 
-const { Business } = models;
+const { Business } = db;
 
 /**
  * @description - This searches for business by location or category
  */
 class SearchFilter {
   /**
-   * @description Searches and gets business by Location
+   * @description Searches and gets business by Location or by category
    *
    * @param{Object} req - api request
    *
@@ -17,55 +17,33 @@ class SearchFilter {
    *
    * @return{undefined}
    */
-  static byLocation(req, res, next) {
-    const { location } = req.query;
-    const locate = [];
+  static byLocationOrCategory(req, res, next) {
+    const { location, category } = req.query;
     if (location) {
-      for (let i = 0; i < Business.length; i += 1) {
-        if (location.toLowerCase() === Business[i].location.toLowerCase()) {
-          locate.push(Business[i]);
-        }
-      }
-      if (locate.length === 0) {
-        return res.status(404).json({
-          message: 'There is no business with that location',
-          error: true
+      Business
+        .findAll({ where: { location: req.params.location } })
+        .then((business) => {
+          if (business) {
+            res.status(200).send({ business });
+          } else {
+            res.status(404).send({ message: 'No Businesses with that location found!' });
+          }
         });
-      }
-      return res.status(200).json(locate);
     }
-    next();
-  }
 
-  /**
-   * @description Searches and gets business by Category
-   *
-   * @param{Object} req - api request
-   *
-   * @param{Object} res - route response
-   *
-   * @param{Function} next - next middleware
-   *
-   * @return{undefined}
-   */
-  static byCategory(req, res, next) {
-    const { category } = req.query;
-    const categories = [];
     if (category) {
-      for (let i = 0; i < Business.length; i += 1) {
-        if (category.toLowerCase() === Business[i].category.toLowerCase()) {
-          categories.push(Business[i]);
-        }
-      }
-      if (categories.length === 0) {
-        return res.status(404).json({
-          message: 'There is no business in that category',
-          error: true
+      Business
+        .findAll({ where: { category: req.params.location } })
+        .then((business) => {
+          if (business) {
+            res.status(200).send({ business });
+          } else {
+            res.status(404).send({ message: 'No Businesses with that category found' });
+          }
         });
-      }
-      return res.status(200).json(categories);
+    } else if (!location || !category) {
+      next();
     }
-    next();
   }
 }
 

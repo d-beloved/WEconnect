@@ -52,7 +52,7 @@ class BusinessController {
         if (business) {
           business
             .update({
-              name = req.body.name || Business.name,
+              name = req.body.name || business.name,
               address = req.body.address || business.address,
               website = req.body.website || business.website,
               phoneno = req.body.phoneno || business.phoneno,
