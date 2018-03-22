@@ -27,7 +27,7 @@ class BusinessController {
         category: req.body.category,
         services: req.body.services,
         userId: req.user.id
-      });
+      })
       .then((business) => {
         res.status(201).send({ message: 'Your business has been created!', center });
       })
@@ -62,7 +62,7 @@ class BusinessController {
               services = req.body.services || business.services
             })
             .then((modifiedBusiness) => {
-              res.status(200).send({ message: 'Business updated successfully!' business: modifiedBusiness });
+              res.status(200).send({ message: 'Business updated successfully!', business: modifiedBusiness });
             });
         } else {
           res.status(404).send({ message: 'Business not found!' });

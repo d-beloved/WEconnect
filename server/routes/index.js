@@ -62,7 +62,7 @@ router.route('/api/v1/businesses/:businessId')
 
 // Get a Business details
 router.route('/api/v1/businesses/:businessId')
-  .get(BusinessController.getOneBusiness);
+  .get(BusinessController.getBusiness);
 
 // Get all BUsiness in the App
 router.route('/api/v1/businesses')
@@ -77,6 +77,7 @@ router.route('/api/v1/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'review'),
+    authenticate,
     ReviewsController.addReview
   );
 
