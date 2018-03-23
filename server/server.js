@@ -4,7 +4,7 @@ import logger from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
-import router from './routes';
+import router from './routes/router';
 
 // Set up the Swagger document for API documentation
 const swaggerDocument = YAML.load(`${process.cwd()}/server/swagger.yaml`);
