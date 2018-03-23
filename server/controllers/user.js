@@ -72,7 +72,7 @@ class UserController {
       .then((user) => {
         if (user) { // If the user exists
           // compare hashed password
-          bcrypt.compareSync(req.body.password, user.password).then((check) => {
+          bcrypt.compare(req.body.password, user.password).then((check) => {
             if (!check) { // IF the password does not match
               res.status(401).send({ message: 'wrong password!' });
             } else {

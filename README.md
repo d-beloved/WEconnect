@@ -1,6 +1,6 @@
 # WEconnect
-[![Build Status](https://travis-ci.org/d-beloved/WEconnect.svg?branch=development)](https://travis-ci.org/d-beloved/WEconnect)
-[![Coverage Status](https://coveralls.io/repos/github/d-beloved/WEconnect/badge.svg?branch=development)](https://coveralls.io/github/d-beloved/WEconnect?branch=development)
+[![Build Status](https://travis-ci.org/d-beloved/WEconnect.svg?branch=develop)](https://travis-ci.org/d-beloved/WEconnect)
+[![Coverage Status](https://coveralls.io/repos/github/d-beloved/WEconnect/badge.svg?branch=develop)](https://coveralls.io/github/d-beloved/WEconnect?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/81369faf28a735ae202b/maintainability)](https://codeclimate.com/github/d-beloved/WEconnect/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/81369faf28a735ae202b/test_coverage)](https://codeclimate.com/github/d-beloved/WEconnect/test_coverage)
 
