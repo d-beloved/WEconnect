@@ -4,12 +4,12 @@ import bcrypt from 'bcrypt';
 import server from '../../server/server';
 import db from '../../server/models';
 
-const { Users } = db;
+const { User } = db;
 
 const hash = bcrypt.hashSync;
 
 const createUser = () => {
-  Users.push({
+  User.push({
     firstName: 'John',
     lastName: 'Mark',
     email: 'andela@gmail.com',
