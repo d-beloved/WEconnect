@@ -22,8 +22,8 @@ router.route('/api/v1/auth/signup')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
-    Validation.checkRequestEmailIsEmail,
-    Validation.checkEmailNotExists,
+    Validation.validateEmail,
+    Validation.checkEmailExistence,
     UserController.createUser
   );
 
@@ -61,8 +61,7 @@ router.route('/api/v1/businesses/:businessId')
 // Get all BUsiness in the App
 router.route('/api/v1/businesses')
   .get(
-    SearchFilter.byLocation,
-    SearchFilter.byCategory,
+    SearchFilter.byLocationORCategory,
     BusinessController.getAllBusiness
   );
 

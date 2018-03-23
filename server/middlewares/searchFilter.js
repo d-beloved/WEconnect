@@ -7,7 +7,7 @@ const { Business } = models;
  */
 class SearchFilter {
   /**
-   * @description Searches and gets business by Location
+   * @description Searches and gets business by Location and category
    *
    * @param{Object} req - api request
    *
@@ -17,9 +17,11 @@ class SearchFilter {
    *
    * @return{undefined}
    */
-  static byLocation(req, res, next) {
-    const { location } = req.query;
+  static byLocationORCategory(req, res, next) {
+    const { location, category } = req.query;
     const locate = [];
+    const categories = [];
+
     if (location) {
       for (let i = 0; i < Business.length; i += 1) {
         if (location.toLowerCase() === Business[i].location.toLowerCase()) {
@@ -34,23 +36,7 @@ class SearchFilter {
       }
       return res.status(200).json(locate);
     }
-    next();
-  }
 
-  /**
-   * @description Searches and gets business by Category
-   *
-   * @param{Object} req - api request
-   *
-   * @param{Object} res - route response
-   *
-   * @param{Function} next - next middleware
-   *
-   * @return{undefined}
-   */
-  static byCategory(req, res, next) {
-    const { category } = req.query;
-    const categories = [];
     if (category) {
       for (let i = 0; i < Business.length; i += 1) {
         if (category.toLowerCase() === Business[i].category.toLowerCase()) {

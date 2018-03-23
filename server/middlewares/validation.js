@@ -48,7 +48,9 @@ class Validation {
     if (req.body) {
       Object.keys(req.body).forEach((k) => {
         const value = req.body[k];
-        if ((typeof value === 'string' || value instanceof String) && value !== undefined) req.body[k] = req.body[k].trim(); // trim value if body exist
+        // trim value if body exist
+        if ((typeof value === 'string' || value instanceof String) 
+        && value !== undefined) req.body[k] = req.body[k].trim();
       });
     }
     next();
@@ -65,7 +67,7 @@ class Validation {
    *
    * @return{undefined}
    */
-  static checkEmailNotExists(req, res, next) {
+  static checkEmailExistence(req, res, next) {
     for (let i = 0; i < Users.length; i += 1) {
       if (Users[i].email === req.body.email) {
         return res.status(409).json({
@@ -87,7 +89,7 @@ class Validation {
    *
    * @return{undefined}
    */
-  static checkRequestEmailIsEmail(req, res, next) {
+  static validateEmail(req, res, next) {
     if (validator.validate(req.body.email)) {
       next();
     } else {
