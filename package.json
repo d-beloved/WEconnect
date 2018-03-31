@@ -37,6 +37,7 @@
     "email-validator": "^1.1.1",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.2.0",
+    "jwt-decode": "^2.2.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",

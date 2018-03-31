@@ -8,7 +8,8 @@ export default (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     address: {
       type: DataTypes.STRING,
@@ -17,13 +18,15 @@ export default (sequelize, DataTypes) => {
     website: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
       validate: {
         isUrl: { args: true, msg: 'Web address invalid. Enter a valid web address for your business' },
       },
     },
     phoneno: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     details: {
       type: DataTypes.TEXT,
