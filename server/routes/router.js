@@ -1,5 +1,5 @@
 import express from 'express';
-import authenticate from '../middlewares/auth';
+import auth from '../middlewares/auth';
 import UserController from '../controllers/user';
 import BusinessController from '../controllers/business';
 import ReviewsController from '../controllers/reviews';
@@ -15,7 +15,22 @@ const router = express.Router();
 // Welcome message route
 router.route('/api/v1')
   .get((req, res) => {
-    res.status(200).send({ message: 'Welcome to WEconnect app! Your one stop place to get all your business needs answered' });
+    res.status(200).send({
+      message: 'Welcome to WEconnect app! Your one stop place to get all your business needs answered',
+      endpoints: {
+        signup: 'POST /api/v1/auth/signup',
+        login: 'POST /api/v1/auth/login',
+        registerBusiness: 'POST /api/v1/businesses/',
+        getBusinesses: 'GET /api/v1/businesses/',
+        getBusiness: 'GET /api/v1/businesses/:businessId',
+        getBusinessWithLocation: 'GET /api/v1/businesses?location=<location>',
+        getBusinessWithCategory: 'GET /api/v1/businesses?category=<category>',
+        updateBusiness: 'PUT /api/v1/businesses/:businessId',
+        deleteBusiness: 'DELETE /api/v1/businesses/:businessId',
+        getBusinessReview: 'GET /api/v1/businesses/:businessId/reviews',
+        addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews'
+      }
+    });
   });
 
 // Signup
@@ -41,7 +56,7 @@ router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
-    authenticate,
+    auth.authenticate,
     BusinessController.createBusiness
   );
 
@@ -49,14 +64,14 @@ router.route('/api/v1/businesses')
 router.route('/api/v1/businesses/:businessId')
   .put(
     Validation.trimBodyValues,
-    authenticate,
+    auth.authenticate,
     BusinessController.modifyBusiness
   );
 
 // Delete a Business
 router.route('/api/v1/businesses/:businessId')
   .delete(
-    authenticate,
+    auth.authenticate,
     BusinessController.deleteBusiness
   );
 
@@ -75,8 +90,8 @@ router.route('/api/v1/businesses')
 router.route('/api/v1/businesses/:businessId/reviews')
   .post(
     Validation.trimBodyValues,
-    Validation.checkBodyContains('name', 'review'),
-    authenticate,
+    Validation.checkBodyContains('review'),
+    auth.authenticate,
     ReviewsController.addReview
   );
 

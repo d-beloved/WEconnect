@@ -7,8 +7,7 @@
     "start": "babel-node server/server.js",
     "start:dev": "nodemon --watch server --exec babel-node server/server.js",
     "lint": "eslint ./ || true",
-    "test": "nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
-    "test2": "mocha tests/routes/*.test.js --exit --compilers js:babel-register",
+    "test:": "set NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
@@ -38,6 +37,7 @@
     "email-validator": "^1.1.1",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.2.0",
+    "jwt-decode": "^2.2.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
