@@ -88,11 +88,16 @@ class BusinessController {
     Business
       .findOne({ where: { id: req.params.businessId } })
       .then((business) => {
-        if (business) {
-          business.destroy().then(res.status(200).send({ message: 'Business deleted successfully' }));
-        } else {
+        if (!business) {
           res.status(404).send({ message: 'Business not found!' });
         }
+        if (req.userData.userId === business.userId) {
+          business.destroy().then(res.status(200).send({ message: 'Business deleted successfully' }))
+            .catch((err) => {
+              res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
+            });
+        }
+        res.status(403).json({ message: 'You are not Allowed to delete this business' });
       })
       .catch((err) => {
         res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
@@ -149,6 +154,29 @@ class BusinessController {
       .catch((err) => {
         res.status(400).send({ message: err.errors ? err.errors : err.message });
       });
+  }
+
+  // RETRIEVE ALL BUSINESSES FOR A PARTICULAR USER
+  /**
+   * @description Gets a Business registered by the user from the database
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} Success message with the business found or error message
+   */
+  static retrieveUserBusinesses(req, res) {
+    return Business
+      .findAll({
+        where: {
+          UserId: req.userData.userId
+        }
+      })
+      .then((business) => {
+        if (business.length > 0) {
+          return res.status(200).json({ message: businessMessages.businessFoundMessage, business });
+        }
+        return res.status(404).json({ message: 'No Businesses' });
+      })
+      .catch(err => res.status(500).json(serverErrorMessage.message));
   }
 }
 
