@@ -49,7 +49,10 @@ class BusinessController {
     Business
       .findOne({ where: { id: req.params.businessId } })
       .then((business) => {
-        if (business) {
+        if (!business) {
+          res.status(404).send({ message: 'Business not found!' });
+        }
+        if (req.userData.userId === business.userId) {
           business
             .update({
               name: req.body.name || business.name,
@@ -64,9 +67,8 @@ class BusinessController {
             .then((modifiedBusiness) => {
               res.status(200).send({ message: 'Business updated successfully!', business: modifiedBusiness });
             });
-        } else {
-          res.status(404).send({ message: 'Business not found!' });
         }
+        res.status(403).json({ message: 'You are not allowed to update this business' });
       })
       .catch((err) => {
         res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
