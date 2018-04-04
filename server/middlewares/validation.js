@@ -128,21 +128,19 @@ class Validation {
       .then((business) => {
         if (!business) {
           next();
-        }
-        else if (business.dataValues.name === inputName &&
+        } else if (business.dataValues.name === inputName &&
           business.dataValues.phoneno === inputPhoneno) {
           res.status(409).send({ message: 'Business with same name and phone number already exists' });
-        }
-        else if (business.dataValues.name === inputName) {
+        } else if (business.dataValues.name === inputName) {
           res.status(409).send({ message: 'Business woth same name already exists' });
-        }
-        else if (business.dataValues.phoneno === inputPhoneno) {
+        } else if (business.dataValues.phoneno === inputPhoneno) {
           res.status(409).send({ message: 'Business with same phone number exists already' });
         }
       })
       .catch((err) => {
         res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
       });
+  }
 }
 
 export default Validation;
