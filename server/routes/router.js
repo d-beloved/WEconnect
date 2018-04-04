@@ -25,11 +25,12 @@ router.route('/api/v1')
         getBusiness: 'GET /api/v1/businesses/:businessId',
         getBusinessWithLocation: 'GET /api/v1/businesses?location=<location>',
         getBusinessWithCategory: 'GET /api/v1/businesses?category=<category>',
+        getBusinessWithLocationAndCategory: 'GET /api/v1/businesses?category=<category>&location=<location>',
         updateBusiness: 'PUT /api/v1/businesses/:businessId',
         deleteBusiness: 'DELETE /api/v1/businesses/:businessId',
         getBusinessReview: 'GET /api/v1/businesses/:businessId/reviews',
         addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews',
-        getUser
+        getUserBusinesses: 'GET api/v1/businesses/user'
       }
     });
   });

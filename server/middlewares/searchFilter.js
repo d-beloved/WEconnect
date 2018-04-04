@@ -33,12 +33,24 @@ class SearchFilter {
 
     if (category) {
       Business
-        .findAll({ where: { category: req.params.location } })
+        .findAll({ where: { category: req.params.category } })
         .then((business) => {
           if (business) {
             res.status(200).send({ business });
           } else {
             res.status(404).send({ message: 'No Businesses with that category found' });
+          }
+        });
+    }
+
+    if (location && category) {
+      Business
+        .findAll({ where: { category: req.params.category } && { location: req.params.location } })
+        .then((business) => {
+          if (business) {
+            res.status(200).send({ business });
+          } else {
+            res.status(404).send({ message: 'No business with the soecified category and location found!' });
           }
         });
     } else if (!location || !category) {
