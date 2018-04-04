@@ -65,6 +65,18 @@ class UserController {
    * @return{string} login status
    */
   static loginUser(req, res) {
+    if (req.headers.authorization) {
+      try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        req.userData = decoded;
+        if (req.userData !== null) {
+          return res.status(200).json({ message: 'You are already logged in' });
+        }
+      } catch (errror) {
+        return res.status(401).json({ message: 'Token is invalid or has expired, update token' });
+      }
+    }
     User
       .findOne({
         where: { email: req.body.email },
