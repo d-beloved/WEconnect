@@ -9,7 +9,8 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       address: {
         type: Sequelize.STRING,
@@ -18,10 +19,12 @@ module.exports = {
       website: {
         type: Sequelize.STRING,
         allowNull: true,
+        unique: true
       },
       phoneno: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true
       },
       details: {
         type: Sequelize.TEXT,
