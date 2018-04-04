@@ -41,7 +41,7 @@ router.route('/api/v1/auth/signup')
     Validation.trimBodyValues,
     Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
     Validation.validateEmail,
-    Validation.checkEmailExistence,
+    Validation.checkUserEmailExistence,
     UserController.createUser
   );
 
@@ -59,6 +59,7 @@ router.route('/api/v1/businesses')
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
     auth.authenticate,
+    Validation.businessValidate,
     BusinessController.createBusiness
   );
 

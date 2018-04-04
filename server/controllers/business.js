@@ -23,7 +23,7 @@ class BusinessController {
         website: req.body.website || null,
         phoneno: req.body.phoneno,
         details: req.body.details,
-        location: req.body.details,
+        location: req.body.location,
         category: req.body.category,
         services: req.body.services,
         userId: req.user.id
@@ -167,7 +167,7 @@ class BusinessController {
     Business
       .findAll({
         where: {
-          UserId: req.userData.userId
+          userId: req.userData.userId
         }
       })
       .then((business) => {

@@ -17,7 +17,7 @@ export default {
       // checks if token matches the one provided at login
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
-          res.status(401).send({ message: 'Authentication failed!' });
+          res.status(401).send({ message: 'Authentication failed! Token is Invalid or expired. Please Login again' });
         } else {
           req.user = decoded;
           next();
