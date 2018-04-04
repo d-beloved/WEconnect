@@ -28,7 +28,8 @@ router.route('/api/v1')
         updateBusiness: 'PUT /api/v1/businesses/:businessId',
         deleteBusiness: 'DELETE /api/v1/businesses/:businessId',
         getBusinessReview: 'GET /api/v1/businesses/:businessId/reviews',
-        addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews'
+        addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews',
+        getUser
       }
     });
   });
@@ -84,6 +85,13 @@ router.route('/api/v1/businesses')
   .get(
     SearchFilter.byLocationOrCategory,
     BusinessController.getAllBusiness
+  );
+
+// Get all Businesses for a particular user
+router.route('api/v1/businesses/user')
+  .get(
+    auth.authenticate,
+    BusinessController.getUserBusinesses
   );
 
 // Post reviews for a business

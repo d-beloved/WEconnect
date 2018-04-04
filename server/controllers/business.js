@@ -163,8 +163,8 @@ class BusinessController {
    * @param {object} res - The response object
    * @return {object} Success message with the business found or error message
    */
-  static retrieveUserBusinesses(req, res) {
-    return Business
+  static getUserBusinesses(req, res) {
+    Business
       .findAll({
         where: {
           UserId: req.userData.userId
@@ -172,11 +172,13 @@ class BusinessController {
       })
       .then((business) => {
         if (business.length > 0) {
-          return res.status(200).json({ message: businessMessages.businessFoundMessage, business });
+          res.status(200).json({ message: 'Your businesses were found', business });
         }
-        return res.status(404).json({ message: 'No Businesses' });
+        res.status(404).json({ message: 'No Businesses for you yet!' });
       })
-      .catch(err => res.status(500).json(serverErrorMessage.message));
+      .catch((err) => {
+        res.status(500).send({ message: err.errors ? err.errors : err.message });
+      });
   }
 }
 
