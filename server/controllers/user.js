@@ -9,7 +9,7 @@ const { User } = db;
  */
 class UserController {
   /**
-   * @description - Registers a new user with a hashed password and creates a token for the user.
+   * @description - Registers a new user with a hashed password.
    *
    * @param {Object} req - api request.
    *
@@ -38,15 +38,10 @@ class UserController {
           password
         })
         .then((user) => {
-          const token = jwt.sign( // this creates a token that lasts for an hour
-            { id: user.id },
-            process.env.SECRET_KEY,
-            { expiresIn: '60m' },
-          );
           const safeUser = user;
           safeUser.password = 'xxxxxxxxxxxxxxx';
           res.status(201).send({
-            message: 'The user has been created!', user: safeUser, token
+            message: 'The user has been created!', user: safeUser
           });
         })
         .catch((err) => {
@@ -84,13 +79,14 @@ class UserController {
       .then((user) => {
         if (user) { // If the user exists
           // compare hashed password
+          const signedInUser = user.id;
           bcrypt.compare(req.body.password, user.password).then((check) => {
             if (!check) { // IF the password does not match
               res.status(401).send({ message: 'wrong password!' });
             } else {
               // creates a token that lasts for an hour
               const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '60m' });
-              res.status(200).send({ message: 'You are logged in!', token });
+              res.status(200).send({ message: 'You are logged in!', token, signedInUser });
             }
           });
         } else {

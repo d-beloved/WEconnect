@@ -19,41 +19,55 @@ class SearchFilter {
    */
   static byLocationOrCategory(req, res, next) {
     const { location, category } = req.query;
-    if (location) {
+    if (location && !category) {
       Business
-        .findAll({ where: { location: req.params.location } })
+        .findAll({ where: { location: req.query.location } })
         .then((business) => {
-          if (business) {
-            res.status(200).send({ business });
+          if (business.length > 0) {
+            res.status(200).send({ message: 'Businesses with the location found', business });
           } else {
             res.status(404).send({ message: 'No Businesses with that location found!' });
           }
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
         });
     }
 
-    if (category) {
+    if (category && !location) {
       Business
-        .findAll({ where: { category: req.params.category } })
+        .findAll({ where: { category: req.query.category } })
         .then((business) => {
-          if (business) {
-            res.status(200).send({ business });
+          if (business.length > 0) {
+            res.status(200).send({ message: 'Businesses with the category found', business });
           } else {
             res.status(404).send({ message: 'No Businesses with that category found' });
           }
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
         });
     }
 
     if (location && category) {
       Business
-        .findAll({ where: { category: req.params.category } && { location: req.params.location } })
-        .then((business) => {
-          if (business) {
-            res.status(200).send({ business });
-          } else {
-            res.status(404).send({ message: 'No business with the soecified category and location found!' });
+        .findAll({
+          where: {
+            category: req.query.category,
+            location: req.query.location
           }
+        })
+        .then((business) => {
+          if (business.length > 0) {
+            res.status(200).send({ message: 'Businesses with the location and category found', business });
+          } else {
+            res.status(404).send({ message: 'No business with the specified category and location found!' });
+          }
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
         });
-    } else if (!location || !category) {
+    } else if (!location && !category) {
       next();
     }
   }

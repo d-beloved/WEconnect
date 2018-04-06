@@ -30,7 +30,7 @@ router.route('/api/v1')
         deleteBusiness: 'DELETE /api/v1/businesses/:businessId',
         getBusinessReview: 'GET /api/v1/businesses/:businessId/reviews',
         addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews',
-        getUserBusinesses: 'GET api/v1/businesses/user'
+        getUserBusinesses: 'GET /api/v1/businesses/userBiz'
       }
     });
   });
@@ -78,6 +78,13 @@ router.route('/api/v1/businesses/:businessId')
     BusinessController.deleteBusiness
   );
 
+// Get all Businesses for a particular user
+router.route('/api/v1/businesses/userBiz')
+  .get(
+    auth.authenticate,
+    BusinessController.getUserBusinesses
+  );
+
 // Get a Business details
 router.route('/api/v1/businesses/:businessId')
   .get(BusinessController.getBusiness);
@@ -87,13 +94,6 @@ router.route('/api/v1/businesses')
   .get(
     SearchFilter.byLocationOrCategory,
     BusinessController.getAllBusiness
-  );
-
-// Get all Businesses for a particular user
-router.route('api/v1/businesses/user')
-  .get(
-    auth.authenticate,
-    BusinessController.getUserBusinesses
   );
 
 // Post reviews for a business
