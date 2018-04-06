@@ -23,10 +23,10 @@ class BusinessController {
         website: req.body.website || null,
         phoneno: req.body.phoneno,
         details: req.body.details,
-        location: req.body.details,
+        location: req.body.location,
         category: req.body.category,
         services: req.body.services,
-        userId: req.user.id
+        userId: req.userData.id
       })
       .then((business) => {
         res.status(201).send({ message: 'Your business has been created!', business });
@@ -49,7 +49,11 @@ class BusinessController {
     Business
       .findOne({ where: { id: req.params.businessId } })
       .then((business) => {
-        if (business) {
+        if (!business) {
+          return res.status(404).send({ message: 'Business not found!' });
+        }
+
+        if (req.userData.id === business.userId) {
           business
             .update({
               name: req.body.name || business.name,
@@ -65,7 +69,7 @@ class BusinessController {
               res.status(200).send({ message: 'Business updated successfully!', business: modifiedBusiness });
             });
         } else {
-          res.status(404).send({ message: 'Business not found!' });
+          res.status(403).send({ message: 'You are not allowed to update this business' });
         }
       })
       .catch((err) => {
@@ -86,10 +90,16 @@ class BusinessController {
     Business
       .findOne({ where: { id: req.params.businessId } })
       .then((business) => {
-        if (business) {
-          business.destroy().then(res.status(200).send({ message: 'Business deleted successfully' }));
+        if (!business) {
+          return res.status(404).send({ message: 'Business not found!' });
+        }
+        if (req.userData.id === business.userId) {
+          business.destroy().then(res.status(200).send({ message: 'Business deleted successfully' }))
+            .catch((err) => {
+              res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
+            });
         } else {
-          res.status(404).send({ message: 'Business not found!' });
+          res.status(403).send({ message: 'You are not Allowed to delete this business' });
         }
       })
       .catch((err) => {
@@ -136,7 +146,7 @@ class BusinessController {
    */
   static getAllBusiness(req, res) {
     Business
-      .all()
+      .findAll()
       .then((businesses) => {
         if (businesses) {
           res.status(200).send({ message: 'All businesses delivered', businesses });
@@ -145,7 +155,33 @@ class BusinessController {
         }
       })
       .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors : err.message });
+        res.status(500).send({ message: err.errors ? err.errors[0].message : err.message });
+      });
+  }
+
+  // RETRIEVE ALL BUSINESSES FOR A PARTICULAR USER
+  /**
+   * @description Gets a Business registered by the user from the database
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} Success message with the business found or error message
+   */
+  static getUserBusinesses(req, res) {
+    Business
+      .findAll({
+        where: {
+          userId: req.userData.id
+        }
+      })
+      .then((businesses) => {
+        if (businesses.length > 0) {
+          res.status(200).send({ message: 'Your businesses were found', businesses });
+        } else {
+          res.status(404).send({ message: 'No Businesses for you yet!' });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.errors ? err.errors : err.message });
       });
   }
 }

@@ -25,10 +25,12 @@ router.route('/api/v1')
         getBusiness: 'GET /api/v1/businesses/:businessId',
         getBusinessWithLocation: 'GET /api/v1/businesses?location=<location>',
         getBusinessWithCategory: 'GET /api/v1/businesses?category=<category>',
+        getBusinessWithLocationAndCategory: 'GET /api/v1/businesses?category=<category>&location=<location>',
         updateBusiness: 'PUT /api/v1/businesses/:businessId',
         deleteBusiness: 'DELETE /api/v1/businesses/:businessId',
         getBusinessReview: 'GET /api/v1/businesses/:businessId/reviews',
-        addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews'
+        addBusinessReview: 'POST /api/v1/businesses/:businessId/reviews',
+        getUserBusinesses: 'GET /api/v1/businesses/userBiz'
       }
     });
   });
@@ -39,7 +41,7 @@ router.route('/api/v1/auth/signup')
     Validation.trimBodyValues,
     Validation.checkBodyContains('firstName', 'lastName', 'email', 'password'),
     Validation.validateEmail,
-    Validation.checkEmailExistence,
+    Validation.checkUserEmailExistence,
     UserController.createUser
   );
 
@@ -57,6 +59,7 @@ router.route('/api/v1/businesses')
     Validation.trimBodyValues,
     Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
     auth.authenticate,
+    Validation.businessValidate,
     BusinessController.createBusiness
   );
 
@@ -73,6 +76,13 @@ router.route('/api/v1/businesses/:businessId')
   .delete(
     auth.authenticate,
     BusinessController.deleteBusiness
+  );
+
+// Get all Businesses for a particular user
+router.route('/api/v1/businesses/userBiz')
+  .get(
+    auth.authenticate,
+    BusinessController.getUserBusinesses
   );
 
 // Get a Business details

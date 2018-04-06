@@ -24,9 +24,21 @@ export default (sequelize, DataTypes) => {
       },
     },
     phoneno: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        notEmpty: {
+          msg: 'Telephone Number is required'
+        },
+        isInt: {
+          msg: 'Enter a valid Telephone Number'
+        },
+        len: {
+          args: [7, 11],
+          msg: 'Telephone Number should be 7 to 11 characters'
+        },
+      }
     },
     details: {
       type: DataTypes.TEXT,

@@ -1,10 +1,4 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import db from '../models';
-
-const { Business, Reviews } = db;
-
-dotenv.config();
 
 /**
  * @description check if logged in user has a valid session token for protected routes
@@ -22,14 +16,11 @@ export default {
     } else {
       // checks if token matches the one provided at login
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-        console.log(req.body.userId);
         if (err) {
-          res.status(401).send({ message: 'Authentication failed!' });
-        } else if (req.body.id === decoded.id) {
-          req.user = decoded;
-          next();
+          res.status(401).send({ message: 'Authentication failed! Token is Invalid or expired. Please Login again' });
         } else {
-          res.status(401).send({ message: 'You don\'t own this resource' });
+          req.userData = decoded;
+          next();
         }
       });
     }

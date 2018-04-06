@@ -41,41 +41,79 @@ The first release of the **app-server** using in-memory/dummy data is hosted on 
   * Navigate to http://localhost:3001/
 
 
-## Available APIs
-- API route that welcomes users to the application
-  * GET : ```/```
-
-- API routes for users to signup and login to the application
-  * POST : ```/api/v1/auth/signup```  (firstName, lastName, email, password)
-  * POST : ```/api/v1/auth/login``` (email, password)
-
-- An API route that allow users to add a business
-  * POST : ```/api/v1/businesses```
-
-- An API route that allow users to modify a Business
-  * PUT : ```/api/v1/businesses/<businessId>```
-
-- An API route that allow users to delete a Business
-  * DELETE : ```/api/v1/businesses/<businessId>```
-
-- An API route that allow users to gets all available Businesses in the app
-  * GET : ```/api/v1/businesses```
-
-- An API route that allow users to gets more details on a particualar business
-  * GET : ```/api/v1/businesses/<businessId>```
-
-- An API route that allow users to gets all available Businesses in the app by their location
-  * GET : ```/api/v1/businesses?location=<location>```
-
-- An API route that allow users to gets all available Businesses in the app by their category
-  * GET : ```/api/v1/businesses?category=<category>``
-
-- An API route that allow users to add new reviews to a business
-  * POST : ```/api/v1/businesses/<businessId>/reviews```
-
-- An API route that allow users to get all the reviews for a business
-  * GET : ```/api/v1/businesses/<businessId>/reviews```
-
+## Available API Endpoints
+<table>
+  <tr>
+      <th>HTTP REQUEST VERB</th>
+      <th>API ENDPOINT/PATH</th>
+      <th>ACTION</th>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/auth/signUp</td>
+      <td>Register a user</td>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/auth/login</td>
+      <td>Login user</td>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/businesses</td>
+      <td>Register a business</td>
+  </tr>
+  <tr>
+      <td>PUT</td>
+      <td>/api/v1/businesses/:businessId</td>
+      <td>Update a business profile with the specified id</td>
+  </tr>
+  <tr>
+      <td>DELETE</td>
+      <td>/api/v1/businesses/:businessId</td>
+      <td>Delete a business with the specified id</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/businesses/:businessId</td>
+      <td>Get a business with the specified id</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/businesses/userBiz</td>
+      <td>Get all businesses registered by a user</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/businesses</td>
+      <td>Get all businesses</td>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/businesses/:businessId/reviews</td>
+      <td>Add a review to a business</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/businesses/:businessId/reviews</td>
+      <td>Get all reviews for a business</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/businesses?location=location</td>
+      <td>Get businesses with a location</td>
+  </tr>
+  </tr>
+      <td>GET</td>
+      <td>/api/v1/businesses?category=category</td>
+      <td>Get businesses with a category</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/businesses?category=category&location=location</td>
+      <td>Get businesses with a category and location</td>
+  </tr>
+</table>
 
 Check [here](https://ayo-weconnect-dummy.herokuapp.com/api-docs) for full documentation.
 

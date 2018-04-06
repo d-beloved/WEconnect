@@ -21,8 +21,8 @@ class ReviewsController {
     Reviews
       .create({
         review: req.body.review,
-        userId: req.user.id,
-        businessId: req.body.business.id
+        userId: req.userData.id,
+        businessId: req.params.businessId
       })
       .then((reviews) => {
         res.status(201).send({ message: 'Review accepted. Thanks a lot!', reviews });
@@ -45,12 +45,12 @@ class ReviewsController {
    */
   static getReviews(req, res) {
     Reviews
-      .findAll({ where: { businessId: req.business.id } })
+      .findAll({ where: { businessId: req.businessId } })
       .then((reviews) => {
-        if (reviews) {
+        if (reviews.length > 0) {
           res.status(200).send({ message: 'All reviews delivered!', reviews });
         } else {
-          res.status(404).send({ message: 'Reviews not found!' });
+          res.status(404).send({ message: 'No reviews for this business YET!' });
         }
       })
       .catch((err) => {
