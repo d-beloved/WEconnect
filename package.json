@@ -7,7 +7,9 @@
     "start": "babel-node server/server.js",
     "start:dev": "nodemon server/server.js --exec babel-node ",
     "lint": "eslint ./ || true",
-    "test:": "set NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
+    "db-migrate": "sequelize db:migrate",
+    "test-migrate": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
+    "test": "set NODE_ENV=test && nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
@@ -42,6 +44,7 @@
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.37.0",
+    "sequelize-cli": "^4.0.0",
     "swagger-ui-express": "^2.0.15",
     "yamljs": "^0.3.0"
   },
