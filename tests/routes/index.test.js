@@ -26,7 +26,7 @@ describe('/GET: / Tests for index routes', () => {
 describe('Tests for documentation route', () => {
   it('Should return the swagger documentation page when user visits the route', (done) => {
     request(server)
-      .get('/api-docs')
+      .get('/api-docs/')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         done();

@@ -1,13 +1,8 @@
-// import fs from 'fs';
-// import path from 'path';
-// import Sequelize from 'sequelize';
-// import dotenv from 'dotenv';
-// import dbConfig from './../config/config';
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const dotenv = require('dotenv');
-const dbConfig = require('../config/config');
+import fs from 'fs';
+import path from 'path';
+import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
+import dbConfig from './../config/config';
 
 dotenv.config();
 
@@ -15,7 +10,6 @@ const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
 const config = dbConfig[env];
 const db = {};
-
 
 let sequelize;
 if (config.use_env_variable) {
