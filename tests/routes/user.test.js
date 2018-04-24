@@ -9,11 +9,39 @@ dotEnv.config();
 
 
 // Test for the Signup a user route
-describe('SignUp User', () => {
+describe('POST Test suites for Auth User SignUp', () => {
   before(seed.emptyUserTable);
   before(seed.addUser);
 
   /* SIGN UP */
+  describe('Test suites for checking user signup inputs', () => {
+    it('should return status code 422 and a message when firstName does not consist of alphabetic characters', (done) => {
+      request(server)
+        .post('/api/v1/auth/signup')
+        .send(seed.setInput(1233, 'Ademola', 'runtown@gmail.com', 'password'))
+        .expect(422)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.body.message.firstName[0], 'The firstName field must contain only alphabetic characters.');
+          done();
+        });
+    });
+    it('should return status code 422 and a message when lastName does not consist of alphabetic characters', (done) => {
+      request(server)
+        .post('/api/v1/auth/signup')
+        .send(seed.setInput('Ayomideji', 123456, 'runtown@gmail.com', 'password'))
+        .expect(422)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.body.message.lastName[0], 'The lastName field must contain only alphabetic characters.');
+          done();
+        });
+    });
+  });
+
+  describe('Test suites for checking for missing and empty fields', () => {
+    
+  })
   it('Should return 400 for missing fields', (done) => {
     request(server)
       .post('/api/v1/auth/signup')
@@ -118,7 +146,6 @@ describe('SignUp User', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         if (err) return done(err);
-        
         expect(res.body).to.be.an('object');
         expect(res.body.message).to.equal('You are logged in!');
         done();
