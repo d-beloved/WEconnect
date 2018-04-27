@@ -116,7 +116,7 @@ class Validation {
           business.dataValues.phoneno === inputPhoneno) {
           res.status(409).send({ message: 'Business with same name and phone number already exists' });
         } else if (business.dataValues.name === inputName) {
-          res.status(409).send({ message: 'Business woth same name already exists' });
+          res.status(409).send({ message: 'Business with same name already exists' });
         } else if (business.dataValues.phoneno === inputPhoneno) {
           res.status(409).send({ message: 'Business with same phone number exists already' });
         }

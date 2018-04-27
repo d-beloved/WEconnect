@@ -9,7 +9,7 @@
     "lint": "eslint ./ || true",
     "db-migrate": "sequelize db:migrate",
     "test-migrate": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
-    "test": "set NODE_ENV=test&& npm run test-migrate && nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
+    "test": "set NODE_ENV=test&& nyc mocha tests/routes/*.test.js --exit --compilers js:babel-register && nyc report",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"

@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import db from '../../server/models';
 
 const { User } = db;
@@ -24,7 +25,7 @@ const userSeed = {
       firstName: 'Ayodeji',
       lastName: 'Moronkeji',
       email: 'amoronkeji@ihstowers.com',
-      password: '1234567'
+      password: bcrypt.hashSync('1234567', bcrypt.genSaltSync(10))
     })
       .then(() => done())
       .catch(err => done(err));
@@ -34,7 +35,7 @@ const userSeed = {
       firstName: 'morayo',
       lastName: 'Enitan',
       email: 'jaja23@ymail.com',
-      password: 'password'
+      password: bcrypt.hashSync('password', bcrypt.genSaltSync(10))
     })
       .then(() => done())
       .catch(err => done(err));
