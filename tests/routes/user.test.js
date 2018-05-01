@@ -1,11 +1,7 @@
-import dotEnv from 'dotenv';
-import { expect } from 'chai';
-import jwt from 'jsonwebtoken';
 import request from 'supertest';
+import { expect } from 'chai';
 import server from '../../server/server';
 import seed from '../seeders/userSeed';
-
-dotEnv.config();
 
 
 // Test for the Signup a user route
@@ -14,31 +10,6 @@ describe('POST TEST SUITES FOR AUTH USER SIGNUP', () => {
   before(seed.addUser);
 
   /* SIGN UP */
-  describe('Test suites for checking user signup inputs', () => {
-    it('should return status code 422 and a message when firstName does not consist of alphabetic characters', (done) => {
-      request(server)
-        .post('/api/v1/auth/signup')
-        .send(seed.setInput(1233, 'Ademola', 'runtown@gmail.com', 'password'))
-        .expect(422)
-        .end((err, res) => {
-          if (err) return done(err);
-          expect(res.body.message.firstName[0], 'The firstName field must contain only alphabetic characters.');
-          done();
-        });
-    });
-    it('should return status code 422 and a message when lastName does not consist of alphabetic characters', (done) => {
-      request(server)
-        .post('/api/v1/auth/signup')
-        .send(seed.setInput('Ayomideji', 123456, 'runtown@gmail.com', 'password'))
-        .expect(422)
-        .end((err, res) => {
-          if (err) return done(err);
-          expect(res.body.message.lastName[0], 'The lastName field must contain only alphabetic characters.');
-          done();
-        });
-    });
-  });
-
   describe('TEST suites for checking for missing and empty fields', () => {
     it('Should return 400 for missing lastName', (done) => {
       request(server)
@@ -149,6 +120,20 @@ describe('Login User', () => {
   before(seed.addUser1);
 
   /* LOGIN */
+  it('Should return 200 for successful login and user\'s token', (done) => {
+    request(server)
+      .post('/api/v1/auth/login')
+      .send(seed.setLogin('jaja23@ymail.com', 'password'))
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        if (err) return done(err);
+        expect(res.body).to.be.an('object');
+        expect(res.body.message).to.equal('You are logged in!');
+        expect(res.body).to.have.property('token');
+        done();
+      });
+  });
+
   describe('Test suite for missing fields in Login', () => {
     it('Should return 400 for missing password field', (done) => {
       request(server)
@@ -198,25 +183,17 @@ describe('Login User', () => {
     });
   });
 
-  describe('Test suite for checking if the User is logged in already and If token is expired', () => {
-    it('Should return 200 when user is already logged in', (done) => {
-      request(server)
-        .post('api/v1/auth.login')
-        .send(seed.setLogin('jaja23@ymail.com', 'password'))
-        .end
-    })
-  });
-
-  it('Should return 200 for successful login and user\'s token', (done) => {
-    request(server)
-      .post('/api/v1/auth/login')
-      .send(seed.setLogin('jaja23@ymail.com', 'password'))
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        if (err) return done(err);
-        expect(res.body).to.be.an('object');
-        expect(res.body.message).to.equal('You are logged in!');
-        done();
-      });
-  });
+  // describe('Test suite for invalid or expired token', () => {
+  //   it('Should return 401 when token is invalid or expired', (done) => {
+  //     request(server)
+  //       .post('api/v1/auth.login')
+  //       .set('authorization', 'invalid')
+  //       .send(seed.setLogin('jaja23@ymail.com', 'password'))
+  //       .end((err, res) => {
+  //         expect(res.status).to.equal(401);
+  //         expect(res.body.message).to.equal('Token is invalid or has expired, Please re-login');
+  //         done();
+  //       });
+  //   });
+  // });
 });

@@ -57,7 +57,7 @@ router.route('/api/v1/auth/login')
 router.route('/api/v1/businesses')
   .post(
     Validation.trimBodyValues,
-    Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
+    Validation.checkBodyContains('name', 'address', 'phoneno', 'details', 'location', 'category', 'services'),
     auth.authenticate,
     Validation.businessValidate,
     BusinessController.createBusiness

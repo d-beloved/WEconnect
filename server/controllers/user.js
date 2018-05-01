@@ -68,8 +68,9 @@ class UserController {
         if (req.userData !== null) {
           return res.status(200).json({ message: 'You are already logged in' });
         }
-      } catch (errror) {
-        return res.status(401).json({ message: 'Token is invalid or has expired, Please re-login' });
+      } catch (error) {
+        return res.status(401)
+          .json({ message: 'Token is invalid or has expired, Please re-login' });
       }
     }
     User
