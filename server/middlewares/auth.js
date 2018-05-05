@@ -10,12 +10,13 @@ import jwt from 'jsonwebtoken';
 export default {
 
   authenticate(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization;
     if (!token) {
       res.status(401).send({ message: 'token is required!' });
     } else {
       // checks if token matches the one provided at login
-      jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+      const rightToken = token.split(' ')[1]; // Splits the token to reveal the user
+      jwt.verify(rightToken, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
           res.status(401).send({ message: 'Authentication failed! Token is Invalid or expired. Please Login again' });
         } else {

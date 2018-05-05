@@ -56,9 +56,9 @@ router.route('/api/v1/auth/login')
 // Register a business
 router.route('/api/v1/businesses')
   .post(
-    Validation.trimBodyValues,
-    Validation.checkBodyContains('name', 'phoneno', 'details', 'location', 'category', 'services'),
     auth.authenticate,
+    Validation.trimBodyValues,
+    Validation.checkBodyContains('name', 'address', 'phoneno', 'details', 'location', 'category', 'services'),
     Validation.businessValidate,
     BusinessController.createBusiness
   );
@@ -66,8 +66,8 @@ router.route('/api/v1/businesses')
 // Modify a Business
 router.route('/api/v1/businesses/:businessId')
   .put(
-    Validation.trimBodyValues,
     auth.authenticate,
+    Validation.trimBodyValues,
     BusinessController.modifyBusiness
   );
 
@@ -99,9 +99,9 @@ router.route('/api/v1/businesses')
 // Post reviews for a business
 router.route('/api/v1/businesses/:businessId/reviews')
   .post(
+    auth.authenticate,
     Validation.trimBodyValues,
     Validation.checkBodyContains('review'),
-    auth.authenticate,
     ReviewsController.addReview
   );
 

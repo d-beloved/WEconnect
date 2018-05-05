@@ -1,6 +1,6 @@
 import db from '../models';
 
-const { Reviews } = db;
+const { Reviews, Business } = db;
 
 /**
  * @description - Manages the reviews for each business
@@ -18,17 +18,24 @@ class ReviewsController {
    * @return {object} - status code and error message
    */
   static addReview(req, res) {
-    Reviews
-      .create({
-        review: req.body.review,
-        userId: req.userData.id,
-        businessId: req.params.businessId
-      })
-      .then((reviews) => {
-        res.status(201).send({ message: 'Review accepted. Thanks a lot!', reviews });
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+    Business
+      .findOne({ where: { id: req.params.businessId } })
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({ message: 'Business not found!' });
+        }
+        Reviews
+          .create({
+            review: req.body.review,
+            userId: req.userData.id,
+            businessId: req.params.businessId
+          })
+          .then((reviews) => {
+            res.status(201).send({ message: 'Review accepted. Thanks a lot!', reviews });
+          })
+          .catch((err) => {
+            res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+          });
       });
   }
 
@@ -44,17 +51,24 @@ class ReviewsController {
    * @return {object} - status code and error message
    */
   static getReviews(req, res) {
-    Reviews
-      .findAll({ where: { businessId: req.businessId } })
-      .then((reviews) => {
-        if (reviews.length > 0) {
-          res.status(200).send({ message: 'All reviews delivered!', reviews });
-        } else {
-          res.status(404).send({ message: 'No reviews for this business YET!' });
+    Business
+      .findOne({ where: { id: req.params.businessId } })
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({ message: 'Business not found!' });
         }
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+        Reviews
+          .findAll({ where: { businessId: req.businessId } })
+          .then((reviews) => {
+            if (reviews.length > 0) {
+              res.status(200).send({ message: 'All reviews delivered!', reviews });
+            } else {
+              res.status(404).send({ message: 'No reviews for this business YET!' });
+            }
+          })
+          .catch((err) => {
+            res.status(400).send({ message: err.errors ? err.errors[0].message : err.message });
+          });
       });
   }
 }

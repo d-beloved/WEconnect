@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 
 module.exports = {
@@ -7,7 +8,8 @@ module.exports = {
     database: process.env.DB_NAME,
     host: '127.0.0.1',
     port: 5432,
-    dialect: 'postgres'
+    dialect: 'postgres',
+    operatorsAliases: false
   },
   test: {
     username: process.env.TEST_DB_USER,
@@ -15,7 +17,8 @@ module.exports = {
     database: process.env.TEST_DB_NAME,
     host: '127.0.0.1',
     port: 5432,
-    dialect: 'postgres'
+    dialect: 'postgres',
+    operatorsAliases: false
   },
   production: {
     use_env_variable: 'DATABASE_URL',

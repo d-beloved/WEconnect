@@ -12,20 +12,16 @@ const { Op } = Sequelize;
 class Validation {
   /**
    * @description Checks if request body contains required keys
-   *
    * @param{Object} req - api request
-   *
    * @param{Object} res - route response
-   *
    * @param{Function} next - next middleware
-   *
    * @return{undefined}
    */
   static checkBodyContains(...params) {
     return (req, res, next) => {
       /* eslint-disable no-restricted-syntax */
       for (const p of params) {
-        if (req.body[p] === undefined) {
+        if (req.body[p] === undefined || req.body[p] === '') {
           return res.status(400).send({
             message: `${p} required in body!`
           });
@@ -37,13 +33,9 @@ class Validation {
 
   /**
    * @description Trims body values
-   *
    * @param{Object} req - api request
-   *
    * @param{Object} res - route response
-   *
    * @param{Function} next - next middleware
-   *
    * @return{undefined}
    */
   static trimBodyValues(req, res, next) {
@@ -61,13 +53,9 @@ class Validation {
 
   /**
    * @description Chcecks if Email already exists before crestion
-   *
    * @param{Object} req - api request
-   *
    * @param{Object} res - route response
-   *
    * @param{Function} next - next middleware
-   *
    * @return{undefined}
    */
   static checkUserEmailExistence(req, res, next) {
@@ -87,13 +75,9 @@ class Validation {
 
   /**
    * @description Chceks if an entered email is really an email
-   *
    * @param{Object} req - api request
-   *
    * @param{Object} res - route response
-   *
    * @param{Function} next - next middleware
-   *
    * @return{undefined}
    */
   static validateEmail(req, res, next) {
@@ -132,7 +116,7 @@ class Validation {
           business.dataValues.phoneno === inputPhoneno) {
           res.status(409).send({ message: 'Business with same name and phone number already exists' });
         } else if (business.dataValues.name === inputName) {
-          res.status(409).send({ message: 'Business woth same name already exists' });
+          res.status(409).send({ message: 'Business with same name already exists' });
         } else if (business.dataValues.phoneno === inputPhoneno) {
           res.status(409).send({ message: 'Business with same phone number exists already' });
         }
