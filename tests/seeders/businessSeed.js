@@ -46,6 +46,21 @@ const businessSeed = {
     })
       .then(() => done())
       .catch(err => done(err));
+  },
+  addBusiness1(done) {
+    Business.create({
+      name: 'Travis Greene Enterptises',
+      address: '8, Alluvial, SanJose, Lagos',
+      website: 'www.travisgreene.tv',
+      phoneno: '07067839024',
+      details: 'All over the wormkbvdvubv iuvbizbdcud dvubbdbdicc',
+      userId: 1,
+      location: 'Lagos',
+      category: 'Music',
+      services: 'Working, walking, singing, Helping'
+    })
+      .then(() => done())
+      .catch(err => done(err));
   }
 };
 

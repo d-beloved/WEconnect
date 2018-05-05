@@ -8,9 +8,9 @@ const reviewSeed = {
       .then(() => done())
       .catch(err => done(err));
   },
-  setInput(content) {
+  setInput(review) {
     return {
-      content
+      review
     };
   },
   addReview(done) {
