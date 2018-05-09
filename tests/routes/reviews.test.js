@@ -75,7 +75,9 @@ describe('TEST Suites for the REVIEW ACTIONS', () => {
         request(server)
           .post('/api/v1/businesses/0/reviews')
           .set({ authorization: token })
-          .send(reviewSeed.setInput('The food at your restaurant was heavenly'))
+          .send({
+            review: 'The food at your restaurant was heavenly',
+          })
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body.message).to.equal('Business not found!');
@@ -86,7 +88,9 @@ describe('TEST Suites for the REVIEW ACTIONS', () => {
         request(server)
           .post('/api/v1/businesses/1/reviews')
           .set({ authorization: token })
-          .send(reviewSeed.setInput('The food at your restaurant was heavenly'))
+          .send({
+            review: 'The food at your restaurant was heavenly',
+          })
           .end((err, res) => {
             expect(res.status).to.equal(201);
             expect(res.body).to.be.an('object');
