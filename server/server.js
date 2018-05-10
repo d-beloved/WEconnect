@@ -1,11 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
 import router from './routes/router';
 
+// load all env variables from .env file into process.env object.
+dotenv.config();
 // Set up the Swagger document for API documentation
 const swaggerDocument = YAML.load(`${process.cwd()}/server/swagger.yaml`);
 
