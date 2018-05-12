@@ -186,7 +186,7 @@ describe('Login User', () => {
   describe('Test suite for invalid or expired token', () => {
     it('Should return 401 when token is invalid or expired', (done) => {
       request(server)
-        .post('api/v1/auth.login')
+        .post('/api/v1/auth/login')
         .set({ authorization: 'invalid' })
         .send(seed.setLogin('jaja23@ymail.com', 'password'))
         .end((err, res) => {

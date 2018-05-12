@@ -5,8 +5,6 @@ script:
  - npm test
 services:
   -postgresql
-env:
-  - SECRET_KEY=inGodwetrust
 before_script:
   - psql -c 'CREATE DATABASE travis;' -U postgres
 before_install:
@@ -17,5 +15,5 @@ after_success:
   - npm run coveralls
   - npm run coverage
   - npm run report-coverage
-  - CODECLIMATE_REPO_TOKEN=b7070f36a7a8acb33ca02b7543476778b82657295746ed309c179a51faae1852 codeclimate-test-reporter < ./coverage/lcov.info
+  - npm run codeclimate-report
   

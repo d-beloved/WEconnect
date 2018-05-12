@@ -1,5 +1,5 @@
-import { expect } from 'chai';
 import request from 'supertest';
+import { expect } from 'chai';
 import server from '../../server/server';
 
 describe('/GET: / Tests for index routes', () => {

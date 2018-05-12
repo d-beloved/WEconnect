@@ -58,7 +58,7 @@ class ReviewsController {
           return res.status(404).send({ message: 'Business not found!' });
         }
         Reviews
-          .findAll({ where: { businessId: req.businessId } })
+          .findAll({ where: { businessId: req.params.businessId } })
           .then((reviews) => {
             if (reviews.length > 0) {
               res.status(200).send({ message: 'All reviews delivered!', reviews });

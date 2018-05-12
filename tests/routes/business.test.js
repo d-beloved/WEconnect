@@ -1,5 +1,4 @@
 import request from 'supertest';
-// import jwtDecode from 'jwt-decode';
 import { expect } from 'chai';
 import server from '../../server/server';
 import userSeed from '../seeders/userSeed';
@@ -15,8 +14,6 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
 
   let token;
   let token2;
-  // let id;
-  // let id2;
   before((done) => {
     request(server)
       .post('/api/v1/auth/login')
@@ -25,7 +22,6 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
       .end((err, res) => {
         if (err) return done(err);
         token = `Bearer ${res.body.token}`;
-        // id = jwtDecode(token).id;
         done();
       });
   });
@@ -240,7 +236,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
     describe('Test suites for Validating the business before creation', () => {
       it('Should return 409 if Business with same name and phone no already exists', (done) => {
         request(server)
-          .post('api/v1/businesses')
+          .post('/api/v1/businesses')
           .set({ authorization: token })
           .send(bizSeed.setInput(
             'Monravian fall',
@@ -260,7 +256,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
       });
       it('Should return 409 if Business with same name already exists', (done) => {
         request(server)
-          .post('api/v1/businesses')
+          .post('/api/v1/businesses')
           .set({ authorization: token })
           .send(bizSeed.setInput(
             'Monravian fall',
@@ -280,7 +276,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
       });
       it('Should return 409 if Business with same phoneno already exists', (done) => {
         request(server)
-          .post('api/v1/businesses')
+          .post('/api/v1/businesses')
           .set({ authorization: token })
           .send(bizSeed.setInput(
             'Monravian',
@@ -305,13 +301,13 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
           .post('/api/v1/businesses')
           .set({ authorization: token })
           .send(bizSeed.setInput(
-            'Dave concepts',
+            'Double DD',
             '9,tevbehcbe,evuewnjcwnc, Nigeria',
-            'www.nscdc.com.',
-            '+234 (0)7055439529',
+            'www.nscdc.com',
+            '08133103258',
             'bcevejvbw kbhvw nvasn betnefn kdj dsvjwr rjb rjdevhd',
-            'Ajah, Lagos',
-            'Telecommunications',
+            'Bosnia',
+            'Telepath',
             'fibre optic, end to end connections'
           ))
           .end((err, res) => {
@@ -398,9 +394,9 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
             'Dave concepts',
             '9,tevbehcbe,evuewnjcwnc, Nigeria',
             'www.nscdc.com.dazall',
-            '+234 (0)7055439529',
+            '07055439529',
             'bcevejvbw kbhvw nvasn betnefn kdj dsvjwr rjb rjdevhd',
-            'Ajah, Lagos',
+            'Lagos',
             'Telecommunications',
             'fibre optic, end to end connections'
           ))
@@ -511,7 +507,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
     /* Get all businesses with specific location */
     it('Should return 200 if business with the location was found', (done) => {
       request(server)
-        .get('/api/v1/businesses?location=Lagos')
+        .get('/api/v1/businesses?location=Bosnia')
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.an('object');
@@ -534,7 +530,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
     /* Get all businesses with specific category */
     it('Should return 200 if business in the category was found', (done) => {
       request(server)
-        .get('/api/v1/businesses?category=Praying')
+        .get('/api/v1/businesses?category=Telecommunications')
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.an('object');
@@ -553,7 +549,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
     });
     it('Should return 200 if business in the category and location was found', (done) => {
       request(server)
-        .get('/api/v1/businesses?category=Praying&location=Lagos')
+        .get('/api/v1/businesses?category=Telepath&location=Bosnia')
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.an('object');
