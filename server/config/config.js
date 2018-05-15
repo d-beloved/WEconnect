@@ -22,7 +22,6 @@ module.exports = {
   },
   production: {
     use_env_variable: 'DATABASE_URL',
-    ssl: true,
     dialect: 'postgres'
   }
 };
