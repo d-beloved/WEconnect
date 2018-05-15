@@ -148,7 +148,7 @@ class BusinessController {
     Business
       .findAll()
       .then((businesses) => {
-        if (businesses) {
+        if (businesses > 0) {
           res.status(200).send({ message: 'All businesses delivered', businesses });
         } else {
           res.status(404).send({ message: 'No Business found!' });

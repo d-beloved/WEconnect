@@ -27,7 +27,7 @@ schemes:
   - https
   - http
 paths:
-  /api/v1:
+  /:
     get:
       tags:
         - Index
@@ -39,7 +39,7 @@ paths:
         '200':
           description: Success
  
-  /api/v1/auth/signup:
+  /auth/signup:
     post:
       tags:
         - user
@@ -63,7 +63,7 @@ paths:
         '201':
           description: Created successfully
   
-  /api/v1/auth/login:
+  /auth/login:
     get:
       tags:
         - user
@@ -102,7 +102,7 @@ paths:
         '400':
           description: Empty fields found.
   
-  /api/v1/businesses:
+  /businesses:
     post:
       tags:
         - business
@@ -111,6 +111,8 @@ paths:
       operationId: createBusiness
       consumes:
         - application/json
+      security:
+        - APIKeyHeader: []
       produces:
         - application/json
       parameters:
@@ -137,7 +139,7 @@ paths:
           schema:
             type: object
     
-  '/api/v1/businesses/{businessId}':
+  '/businesses/{businessId}':
     put:
       tags:
         - business
@@ -146,6 +148,8 @@ paths:
       operationId: modifyBusiness
       consumes:
         - application/json
+      security:
+        - APIKeyHeader: []
       produces:
         - application/json
       parameters:
@@ -168,6 +172,8 @@ paths:
       operationId: deleteBusiness
       produces:
         - application/json
+      security:
+        - APIKeyHeader: []
       parameters:
         - name: businessId
           in: path
@@ -200,8 +206,32 @@ paths:
           description: successful operation
         '404':
           description: Business not found
+          
+  '/businesses/userBiz':       
+    get:
+      tags:
+        - business
+      summary: Finds a business by UserId
+      description: 'Get all business by one user'
+      operationId: getsAllBusinessByUSer
+      produces:
+        - application/json
+      security:
+        - APIKeyHeader: []
+      parameters:
+        - name: userBiz
+          in: path
+          description: Business that will be gotten
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Business not found
   
-  '/api/v1/businesses/{businessId}/reviews':
+  '/businesses/{businessId}/reviews':
     post:
       tags:
         - reviews
@@ -210,6 +240,8 @@ paths:
       operationId: addReview
       consumes:
         - application/json
+      security:
+        - APIKeyHeader: []
       produces:
         - application/json
       parameters:
@@ -258,6 +290,12 @@ paths:
           description: successful operation
         '404':
           description: Business not found
+securityDefinitions:
+   # X-API-Key: abcdef12345
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: X-API-Key
 definitions:
   User:
     type: object
