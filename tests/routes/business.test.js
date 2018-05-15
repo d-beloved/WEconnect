@@ -11,6 +11,7 @@ describe('TEST SUITES FOR ALL BUSINESS ACTIONS', () => {
   before(userSeed.addUser);
   before(userSeed.addUser1);
   before(bizSeed.addBusiness);
+  before(bizSeed.addBusiness1);
 
   let token;
   let token2;
