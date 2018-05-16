@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import server from '../../server/server';
+import server from '../../../app';
 import userSeed from '../seeders/userSeed';
 import bizSeed from '../seeders/businessSeed';
 import reviewSeed from '../seeders/reviewsSeed';

@@ -13,7 +13,7 @@ ratings:
   paths:
   - "server/*.js"
   - "server/**/*.js"
-  - "tests/**/*.js"
+  - "server/tests/**/*.js"
 exclude_paths:
 - node_modules/
 - server/migrations/

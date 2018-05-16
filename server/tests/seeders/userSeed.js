@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import db from '../../server/models';
+import db from '../../models';
 
 const { User } = db;
 
