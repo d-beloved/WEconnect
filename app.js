@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
-import router from './routes/router';
+import router from './server/routes/router';
 
 // load all env variables from .env file into process.env object.
 dotenv.config();
@@ -13,29 +13,29 @@ dotenv.config();
 const swaggerDocument = YAML.load(`${process.cwd()}/server/swagger.yaml`);
 
 // Set up the express app
-const server = express();
+const app = express();
 
 // Parse incoming requests data
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Log requests to the console.
-server.use(logger('dev'));
+app.use(logger('dev'));
 
 // for serving the Swagger documentation
-server.use(cors({ credentials: true, origin: true }));
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(cors({ credentials: true, origin: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // set router for api endpoints
-server.use('/', router);
+app.use('/', router);
 
-// set the port for the server
+// set the port for the app
 const port = process.env.PORT || 3001;
-server.listen(port, () => {
+app.listen(port, () => {
   /* eslint-disable no-console */
   console.log(`WEconnect App Listening on port ${port}!`);
 });
 
-// This will be our application entry. Our server is setup here.
+// This will be our application entry. Our app is setup here.
 
-export default server;
+export default app;

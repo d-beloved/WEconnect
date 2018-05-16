@@ -1,4 +1,4 @@
-import db from '../../server/models';
+import db from '../../models';
 
 const { Business } = db;
 
